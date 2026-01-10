@@ -1,6 +1,6 @@
 # CS 260 Notes
 
-[My startup - Simon](https://simon.cs260.click)
+[My startup - Cool Startup Name Here](https://simon.cs260.click)
 
 ## Helpful links
 
