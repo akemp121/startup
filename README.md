@@ -18,15 +18,15 @@ The process of reading, translating, and memorizing helped me immensely when lea
 
 ### MVP (Minimum Viable Product)
 
-1: User selects a target language
-2: User inputs their interests
-3: User selects a difficulty:
+1. User selects a target language
+2. User inputs their interests
+3. User selects a difficulty:
    - Easy: a child could understand it
    - Intermediate: a teenager could understand it
    - Advanced: university or professional level writing
-4: Based on the user's interests and selected difficulty, AI will retrieve a short article in the target language for the user to read. In the background, an English version will also be retrieved. 
-5: As the user is reading, they can select words they don't understand and get definitions for them. The user can save these words to a memorization bucket. 
-6: The user can quiz themselves on the words that they've saved to the bucket.
+4. Based on the user's interests and selected difficulty, AI will retrieve a short article in the target language for the user to read. In the background, an English version will also be retrieved. 
+5. As the user is reading, they can select words they don't understand and get definitions for them. The user can save these words to a memorization bucket. 
+6. The user can quiz themselves on the words that they've saved to the bucket.
 
 ### Technologies
 
