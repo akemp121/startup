@@ -16,31 +16,34 @@ The process of reading, translating, and memorizing helped me immensely when lea
 
 ![Design image](PreviewMockup.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+### MVP (Minimum Viable Product)
 
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
-
-### Key features
-
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+1: User selects a target language
+2: User inputs their interests
+3: User selects a difficulty:
+   - Easy: a child could understand it
+   - Intermediate: a teenager could understand it
+   - Advanced: university or professional level writing
+4: Based on the user's interests and selected difficulty, AI will retrieve a short article in the target language for the user to read. In the background, an English version will also be retrieved. 
+5: As the user is reading, they can select words they don't understand and get definitions for them. The user can save these words to a memorization bucket. 
+6: The user can quiz themselves on the words that they've saved to the bucket.
 
 ### Technologies
 
-I am going to use the required technologies in the following ways.
+I am going to use the required technologies in the following ways:
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - For basic site structure and layout. There will be three pages. One for login, reading, and practicing.
+- **CSS** - For UI and visuals. 
+- **React** - Will make the screen interactive. Users will be able to get quick definitions of words that they select. They will be able to save words for later.
+- **Service** - Server endpoints will be:
+    - Retrieving user's preferences (langauge, difficulty, and interests)
+    - Saving user's preferences
+    - Saving user's words
+    - Deleting user's words
+    - Calling an OpenRouter AI API to get the articles
+    - Register/Login/Logout. User needs to be logged in with an account to use the application.
+- **DB/Login** - Store user's account information, preferences, and saved words. 
+- **WebSocket** - Shows a live count of saved words. 
 
 ## 🚀 AWS deliverable
 
