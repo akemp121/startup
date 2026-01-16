@@ -16,7 +16,7 @@ Today I created a repository based off of the template. I've cloned it to my mac
 
 Today I creaded an AWS server. The link to it is at the top of this page. Here is the code to SSH into it:
 
-'''
+```
 ssh -i <directory_to_pem> ubuntu@<ip_address>
-'''
+```
 
