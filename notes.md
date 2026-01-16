@@ -1,6 +1,6 @@
 # CS 260 Notes
 
-[AxleTech](https://github.com/akemp121/startup)
+[Server Link](https://50.17.204.168)
 
 ## Helpful links
 
@@ -11,3 +11,12 @@
 ## GitHub
 
 Today I created a repository based off of the template. I've cloned it to my machine and now I'm editing it with VSCode. I'm pretty unfamiliar with this program but hopefully we learn how to use it in this class. Markdown files are also new to me. 
+
+## AWS Server Setup
+
+Today I creaded an AWS server. The link to it is at the top of this page. Here is the code to SSH into it:
+
+'''
+ssh -i <directory_to_pem> ubuntu@<ip_address>
+'''
+
