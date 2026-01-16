@@ -1,6 +1,6 @@
 # CS 260 Notes
 
-[Server Link](http://50.17.204.168)
+[Server Link](http://readforeign.click)
 
 ## Helpful links
 
@@ -19,4 +19,8 @@ Today I creaded an AWS server. The link to it is at the top of this page. Here i
 ```
 ssh -i <directory_to_pem> ubuntu@<ip_address>
 ```
+
+## Domain Registration
+
+I registered my server under the name (http://readforeign.click). 
 
