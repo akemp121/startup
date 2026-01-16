@@ -1,6 +1,6 @@
 # CS 260 Notes
 
-[Server Link](https://50.17.204.168)
+[Server Link](http://50.17.204.168)
 
 ## Helpful links
 
