@@ -58,3 +58,24 @@ My goal is to eventually make this into a quiz screen where users can memorize t
 
 This is the same text that's on my GitHub. It tells the user about the application and how I thought of it. 
 
+## CSS
+
+Right now I'm learning more about CSS. Below are some things that will be helpful for me in the future:
+
+This allows us to conditionally format elements based on the user's actions and such. They're called pseudo-classes. Info here: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Pseudo-classes).
+
+```
+section:hover {
+  border-left: solid 1em purple;
+}
+```
+
+I can use this to link the pages to my style sheet:
+
+```
+<link rel="stylesheet" href="styles.css" />
+```
+
+
+
+
