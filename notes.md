@@ -173,4 +173,38 @@ p {
 }
 ```
 
+### Animations
+
+You can put some super cool animations into your CSS like this:
+
+```
+p {
+  text-align: center;
+  font-size: 20vh;
+
+  animation-name: demo;
+  animation-duration: 3s;
+}
+```
+
+Then, you can change the keyframes:
+
+```
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  95% {
+    font-size: 21vh;
+  }
+
+  to {
+    font-size: 20vh;
+  }
+}
+```
+
+
+
 
