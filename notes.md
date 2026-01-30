@@ -62,6 +62,8 @@ This is the same text that's on my GitHub. It tells the user about the applicati
 
 Right now I'm learning more about CSS. Below are some things that will be helpful for me in the future:
 
+### Hover
+
 This allows us to conditionally format elements based on the user's actions and such. They're called pseudo-classes. Info here: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Pseudo-classes).
 
 ```
@@ -70,12 +72,105 @@ section:hover {
 }
 ```
 
+### Link Style Sheet
+
 I can use this to link the pages to my style sheet:
 
 ```
 <link rel="stylesheet" href="styles.css" />
 ```
 
+### Sizing Tokens
 
+I can define sizing and spacing tokens at the top of my CSS styling sheet:
+
+```
+:root {
+  /* Syntax: --name: value; */
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+
+  --color-primary: #007bff;
+  --font-main: 'Helvetica', sans-serif;
+}
+```
+
+And this is how they are referenced:
+
+```
+button {
+  background-color: var(--color-primary);
+  padding: var(--spacing-md); /* Uses the 16px token */
+}
+```
+
+### FlexBox and Containers
+
+Margins are rarely used anymore. Most people just use the `gap` property in FlexBox. 
+
+You can replicate containers with the `<div>` element. You could put `class="container"` or something like that to style them all as FlexBoxes:
+
+```
+.container {
+  display: flex; /* This turns on "Horizontal Container" mode */
+  gap: var(--spacing-md); /* Uses your token! */
+}
+
+.sidebar {
+  flex: 1; /* Like Fill Portions = 1 */
+}
+
+.content {
+  flex: 3; /* Like Fill Portions = 3 */
+}
+```
+
+### Breakpoints
+
+This is how you can implement breakpoints:
+
+```
+/* Default Styles (Desktop First) */
+.container {
+  flex-direction: row; /* Sidebar next to Content */
+}
+
+/* The Breakpoint: When screen is smaller than 768px (Tablets/Phones) */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack them vertically */
+  }
+}
+```
+
+You can dynamically change all of your sizing tokens with this as well.
+
+You _will_ be using grid! This is where you layout the general skeleton structure of the page. FlexBox is for the individual elements. 
+
+### Fonts
+
+If I want to host custom fonts on my server, I can do this:
+
+```
+@font-face {
+  font-family: 'Quicksand';
+  src: url('https://cs260.click/fonts/quicksand.ttf');
+}
+
+p {
+  font-family: Quicksand;
+}
+```
+
+Alternatively, I can just get them from Google:
+
+```
+@import url('https://fonts.googleapis.com/css2?family=Rubik Microbe&display=swap');
+
+p {
+  font-family: 'Rubik Microbe';
+}
+```
 
 
