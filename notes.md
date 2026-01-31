@@ -205,6 +205,13 @@ Then, you can change the keyframes:
 }
 ```
 
+### More about flex boxes:
 
+This is how you can justify horizontally and vertically:
+
+```
+justify-content: center; /* Centers vertically (Main Axis) */
+align-items: center;     /* Centers horizontally (Cross Axis) */
+```
 
 
