@@ -214,4 +214,8 @@ justify-content: center; /* Centers vertically (Main Axis) */
 align-items: center;     /* Centers horizontally (Cross Axis) */
 ```
 
+## Simon Bootstrap example
+
+I can't say I've learned much about Bootstrap. It seems to me like a BIG box of tools. Once I become familiar with them, I'll be able to make use of them. To me, it's looking like all we do is include `class="..."` inside of every element that we want to style and reference whatever Bootstrap has to offer. Is it more difficult than that?
+
 
