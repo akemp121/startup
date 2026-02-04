@@ -40,12 +40,12 @@
 body {
     font-family: 'Lexend', sans-serif;
     background-color: var(--background-primary);
-    color: var(--text-primary)
+    color: var(--text-primary);
 }
 
 .btn-primary {
 
-  --bs-btn-border-width: 2px;
+  --bs-btn-border-width: 0px;
 
   --bs-btn-color: var(--button-text-unpressed);
   --bs-btn-bg: var(--button-color-unpressed);
@@ -58,4 +58,24 @@ body {
   --bs-btn-active-color: var(--button-text-pressed);
   --bs-btn-active-bg: var(--button-color-pressed);
   --bs-btn-active-border-color: var(--button-color-pressed);
+}
+
+.header-button {
+
+  --bs-btn-color: var(--button-text-pressed);
+  --bs-btn-bg: var(--background-primary);
+  --bs-btn-border-color: var(--button-color-unpressed);
+
+}
+
+.header-button.active {
+
+  --bs-btn-color: var(--button-text-unpressed);
+  --bs-btn-bg: var(--button-color-unpressed);
+  --bs-btn-border-color: var(--button-color-unpressed);
+
+  --bs-btn-active-color: var(--button-text-unpressed);
+  --bs-btn-active-bg: var(--button-color-unpressed);
+  --bs-btn-active-border-color: var(--button-color-unpressed);
+
 }

@@ -19,7 +19,7 @@
 
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <header class="container-fluid py-3 border-bottom">
 
@@ -37,10 +37,11 @@
                     <menu>
                         <ul class="d-flex gap-3 list-unstyled m-0 p-0">
 
-                            <li><a href="index.html" class="btn btn-primary rounded-pill">Home</a></li>
-                            <li><a href="read.html" class="btn btn-primary rounded-pill">Read</a></li>
-                            <li><a href="practice.html" class="btn btn-primary rounded-pill">Practice</a></li>
-                            <li><a href="about.html" class="btn btn-primary rounded-pill">About</a></li>
+                            <li><a href="index.html" class="btn btn-primary rounded-pill header-button active">Home</a></li>
+                            <li><a href="read.html" class="btn btn-primary rounded-pill header-button">Read</a></li>
+                            <li><a href="practice.html" class="btn btn-primary rounded-pill header-button">Practice</a>
+                            </li>
+                            <li><a href="about.html" class="btn btn-primary rounded-pill header-button">About</a></li>
 
                         </ul>
                     </menu>
@@ -50,40 +51,59 @@
 
             <div class="col-md-3 text-end">
 
-                <p>Welcome, <span class="fw-light">axle121</span></p>
+                <p class="m-0">Welcome, <span class="fw-light">axle121</span></p>
 
             </div>
-            
+
         </div>
 
     </header>
 
+    <main class="container-fluid flex-grow-1 d-flex py-3 align-items-center">
+
+        <div class="w-100">
+
+            <div class="row">
+
+                <div class="col-md-6 offset-md-1">
+
+                    <h1 class="fw-light mb-4">Refine your langauge abilities.</h1>
+
+                    <p class="mb-3">Create an account today:</p>
+
+                    <form method="get" action="read.html">
+
+                        <div class="mb-3">
+                            <label class="form-label">Email:</label>
+                            <input type="text" placeholder="youremail@gmail.com" class="form-control rounded-pill" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password:</label>
+                            <input type="password" placeholder="password" class="form-control rounded-pill" />
+                        </div>
+
+                        <div class="mt-4">
+
+                            <button type="submit" class="btn btn-primary rounded-pill">Login</button>
+                            <button type="submit" class="btn btn-primary rounded-pill">Sign Up</button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
 
 
 
-
-    <main>
-
-        <h1>Refine your langauge abilities.</h1>
-
-        <p>Create an account today:</p>
-
-        <form method="get" action="read.html">
-
-            <div>
-                <span>Email:</span>
-                <input type="text" placeholder="youremail@gmail.com" class="form-control rounded-pill" />
             </div>
 
-            <div>
-                <span>Password:</span>
-                <input type="password" placeholder="password" class="form-control rounded-pill" />
-            </div>
 
-            <button type="submit" class="btn btn-primary rounded-pill">Login</button>
-            <button type="submit" class="btn btn-primary rounded-pill">Sign Up</button>
 
-        </form>
+        </div>
+
+
 
     </main>
 
