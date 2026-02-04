@@ -19,7 +19,7 @@
 
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <header class="container-fluid py-3 border-bottom">
 
@@ -39,7 +39,8 @@
 
                             <li><a href="index.html" class="btn btn-primary rounded-pill header-button">Home</a>
                             </li>
-                            <li><a href="read.html" class="btn btn-primary rounded-pill header-button active">Read</a></li>
+                            <li><a href="read.html" class="btn btn-primary rounded-pill header-button active">Read</a>
+                            </li>
                             <li><a href="practice.html" class="btn btn-primary rounded-pill header-button">Practice</a>
                             </li>
                             <li><a href="about.html" class="btn btn-primary rounded-pill header-button">About</a></li>
@@ -60,36 +61,52 @@
 
     </header>
 
-    <main>
+    <main class="container-fluid flex-grow-1 d-flex py-3">
 
-        <aside>
+        <aside class="col-md-3">
 
-            <h2>Difficulty</h2>
+            <div class="mb-3">
 
-            <form>
+                <h2 class="fw-light">Difficulty</h2>
 
-                <fieldset>
+            </div>
 
-                    <input type="radio" id="beginner" value="Beginner" name="difficulty" checked>
-                    <label for="beginner">Beginner</label>
+            <div class="container-fluid border-bottom">
 
-                    <br>
+                <div class="mb-3">
 
-                    <input type="radio" id="intermediate" value="Intermediate" name="difficulty">
-                    <label for="intermediate">Intermediate</label>
+                    <form>
 
-                    <br>
+                        <fieldset>
 
-                    <input type="radio" id="advanced" value="Advanced" name="difficulty">
-                    <label for="advanced">Advanced</label>
 
-                </fieldset>
+                            <input type="radio" id="beginner" value="Beginner" name="difficulty" checked>
+                            <label for="beginner">Beginner</label>
 
-            </form>
+                            <br>
 
-            <hr>
+                            <input type="radio" id="intermediate" value="Intermediate" name="difficulty">
+                            <label for="intermediate">Intermediate</label>
 
-            <h2>Interests</h2>
+                            <br>
+
+                            <input type="radio" id="advanced" value="Advanced" name="difficulty">
+                            <label for="advanced">Advanced</label>
+
+
+                        </fieldset>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="my-3">
+
+                <h2 class="fw-light">Interests</h2>
+
+            </div>
 
             <ul>
 
@@ -118,7 +135,7 @@
 
         </aside>
 
-        <article>
+        <article class="col-md-6">
 
             <h1>La Pasta: Un Simbolo Italiano</h1>
 
@@ -162,7 +179,8 @@
 
     <footer class="container-fluid py-3 border-top">
 
-        <span>ReadForeign by Alex Kemp. <a href="https://github.com/akemp121/startup">GitHub</a>. 25 articles read around the world</span>
+        <span>ReadForeign by Alex Kemp. <a href="https://github.com/akemp121/startup">GitHub</a>. 25 articles read
+            around the world</span>
 
     </footer>
 
