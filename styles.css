@@ -8,8 +8,11 @@
     --text-primary: #403126;
     --text-secondary: #eadbcb;
 
-    --button-color-off: #dcc1a7;
-    --button-color-on: #6b482c;
+    --button-color-pressed: #dcc1a7;
+    --button-color-unpressed: #6b482c;
+
+    --button-text-pressed: #403126;
+    --button-text-unpressed: #eadbcb;
 
     /* Spacing */
 
@@ -25,9 +28,34 @@
     --radius-medium: 5rem;
     --radius-small: 1rem;
 
+    /* Font Weights */
+    
+    --weight-bold: 700;
+    --weight-semibold: 600;
+    --weight-normal: 400;
+    --weight-light: 200;
+
 }
 
 body {
     font-family: 'Lexend', sans-serif;
     background-color: var(--background-primary);
+    color: var(--text-primary)
+}
+
+.btn-primary {
+
+  --bs-btn-border-width: 2px;
+
+  --bs-btn-color: var(--button-text-unpressed);
+  --bs-btn-bg: var(--button-color-unpressed);
+  --bs-btn-border-color: var(--button-color-unpressed);
+
+  --bs-btn-hover-color: var(--button-text-pressed);
+  --bs-btn-hover-bg: var(--button-color-pressed);
+  --bs-btn-hover-border-color: var(--button-color-unpressed);
+
+  --bs-btn-active-color: var(--button-text-pressed);
+  --bs-btn-active-bg: var(--button-color-pressed);
+  --bs-btn-active-border-color: var(--button-color-pressed);
 }
