@@ -26,3 +26,8 @@
     --radius-small: 1rem;
 
 }
+
+body {
+    font-family: 'Lexend', sans-serif;
+    background-color: var(--background-primary);
+}
