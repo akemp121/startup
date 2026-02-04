@@ -1,0 +1,28 @@
+:root {
+
+    /* Colors */
+
+    --background-primary: #ffffff;
+    --background-secondary: #eadbcb;
+
+    --text-primary: #403126;
+    --text-secondary: #eadbcb;
+
+    --button-color-off: #dcc1a7;
+    --button-color-on: #6b482c;
+
+    /* Spacing */
+
+    --spacing-XS: 8px;
+    --spacing-S: 12px;
+    --spacing-M: 16px;
+    --spacing-L: 20px;
+    --spacing-XL: 24px;
+
+    /* Radii */
+
+    --radius-circle: 50rem;
+    --radius-medium: 5rem;
+    --radius-small: 1rem;
+
+}
