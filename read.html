@@ -63,119 +63,169 @@
 
     <main class="container-fluid flex-grow-1 d-flex py-3">
 
-        <aside class="col-md-3">
+        <div class="row w-100">
 
-            <div class="mb-3">
+            <aside class="col-md-3">
 
-                <h2 class="fw-light">Difficulty</h2>
+                <div class="container-fluid border-bottom py-3">
 
-            </div>
+                    <div class="mb-3">
 
-            <div class="container-fluid border-bottom">
+                        <h2 class="fw-light">Difficulty</h2>
 
-                <div class="mb-3">
+                    </div>
+
+                    <div class="mb-3">
+
+                        <form>
+
+                            <fieldset>
+
+
+                                <input type="radio" id="beginner" value="Beginner" name="difficulty" checked>
+                                <label for="beginner">Beginner</label>
+
+                                <br>
+
+                                <input type="radio" id="intermediate" value="Intermediate" name="difficulty">
+                                <label for="intermediate">Intermediate</label>
+
+                                <br>
+
+                                <input type="radio" id="advanced" value="Advanced" name="difficulty">
+                                <label for="advanced">Advanced</label>
+
+
+                            </fieldset>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div class="container-fluid border-bottom py-3">
+
+                    <div class="mb-3">
+
+                        <h2 class="fw-light">Interests</h2>
+
+                    </div>
+
+                    <ul class="list-unstyled d-flex flex-wrap gap-2">
+
+                        <li class="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+
+                            <span class="me-2">Food</span>
+                            <button type="button" class="btn-close" style="font-size: 12px;"></button>
+
+                        </li>
+
+                        <li class="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+
+                            <span class="me-2">History</span>
+                            <button type="button" class="btn-close" style="font-size: 12px;"></button>
+
+                        </li>
+
+                        <li class="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+                            
+                            <span class="me-2">Cars</span>
+                            <button type="button" class="btn-close" style="font-size: 12px;"></button>
+                        
+                        </li>
+
+                    </ul>
 
                     <form>
 
-                        <fieldset>
+                        <div class="container-fluid">
 
+                            <div class="row">
 
-                            <input type="radio" id="beginner" value="Beginner" name="difficulty" checked>
-                            <label for="beginner">Beginner</label>
+                                <div class="col-md-8">
 
-                            <br>
+                                    <input type="text" placeholder="Add new interest..."
+                                        class="form-control rounded-pill">
 
-                            <input type="radio" id="intermediate" value="Intermediate" name="difficulty">
-                            <label for="intermediate">Intermediate</label>
+                                </div>
 
-                            <br>
+                                <div class="col-md-3">
 
-                            <input type="radio" id="advanced" value="Advanced" name="difficulty">
-                            <label for="advanced">Advanced</label>
+                                    <button type="button" class="btn btn-primary rounded-pill">Add</button>
 
+                                </div>
 
-                        </fieldset>
+                            </div>
+
+                        </div>
 
                     </form>
 
                 </div>
 
-            </div>
+                <div class="container-fluid py-3">
 
-            <div class="my-3">
+                    <form>
 
-                <h2 class="fw-light">Interests</h2>
+                        <button type="button" class="btn btn-primary rounded-pill">Get New Article</button>
 
-            </div>
+                    </form>
 
-            <ul>
+                </div>
 
-                <li>Food <button type="button">X</button></li>
-                <li>History <button type="button">X</button></li>
-                <li>Cars <button type="button">X</button></li>
+            </aside>
 
-            </ul>
+            <article class="col-md-6">
 
-            <form>
+                <div class="my-3">
 
-                <input type="text" placeholder="Add new interest..." class="form-control rounded-pill">
-                <button type="button" class="btn btn-primary rounded-pill">Add</button>
+                    <h1>La Pasta: Un Simbolo Italiano</h1>
 
-            </form>
+                </div>
 
-            <hr>
+                <div class="mb-3">
 
-            <form>
+                    <h3 class="fw-light">By Il Cuore d'Italia</h3>
 
-                <button type="button" class="btn btn-primary rounded-pill">Get New Article</button>
+                </div>
 
-            </form>
+                <p>
 
+                    Molte persone pensano che Marco Polo abbia portato la pasta
+                    in Italia dalla Cina nel 1295. In realtà, questa è solo una leggenda.
+                    La storia della pasta è molto più antica e complessa. Già ai tempi
+                    dell'Antica Roma esistevano piatti simili, come le "lagane",
+                    che erano strisce di pasta cotte al forno, antenate delle moderne lasagne.
 
+                </p>
 
-        </aside>
+                <p>
 
-        <article class="col-md-6">
+                    Tuttavia, la pasta secca come la conosciamo oggi ha origini arabe.
+                    Durante il Medioevo, gli arabi introdussero in Sicilia l'arte di essiccare
+                    la pasta al sole. Questa tecnica era fondamentale perché permetteva di
+                    conservare il cibo per lunghi periodi, rendendolo perfetto per i viaggi
+                    in mare e per evitare le carestie.
 
-            <h1>La Pasta: Un Simbolo Italiano</h1>
+                </p>
 
-            <h3><i>By Il Cuore d'Italia</i></h3>
+                <p>
 
-            <p>
+                    Per secoli, la pasta è stata mangiata "in bianco", condita solo con
+                    formaggio e spezie. La vera rivoluzione è arrivata nel XIX secolo a Napoli,
+                    quando gli italiani hanno iniziato ad aggiungere il pomodoro, un frutto
+                    importato dalle Americhe. Oggi esistono più di 300 formati di pasta e,
+                    per gli italiani, un piatto di spaghetti non è solo cibo: è un simbolo di cultura,
+                    famiglia e unità nazionale.
 
-                Molte persone pensano che Marco Polo abbia portato la pasta
-                in Italia dalla Cina nel 1295. In realtà, questa è solo una leggenda.
-                La storia della pasta è molto più antica e complessa. Già ai tempi
-                dell'Antica Roma esistevano piatti simili, come le "lagane",
-                che erano strisce di pasta cotte al forno, antenate delle moderne lasagne.
+                </p>
 
-            </p>
+            </article>
 
-            <p>
-
-                Tuttavia, la pasta secca come la conosciamo oggi ha origini arabe.
-                Durante il Medioevo, gli arabi introdussero in Sicilia l'arte di essiccare
-                la pasta al sole. Questa tecnica era fondamentale perché permetteva di
-                conservare il cibo per lunghi periodi, rendendolo perfetto per i viaggi
-                in mare e per evitare le carestie.
-
-            </p>
-
-            <p>
-
-                Per secoli, la pasta è stata mangiata "in bianco", condita solo con
-                formaggio e spezie. La vera rivoluzione è arrivata nel XIX secolo a Napoli,
-                quando gli italiani hanno iniziato ad aggiungere il pomodoro, un frutto
-                importato dalle Americhe. Oggi esistono più di 300 formati di pasta e,
-                per gli italiani, un piatto di spaghetti non è solo cibo: è un simbolo di cultura,
-                famiglia e unità nazionale.
-
-            </p>
-
-        </article>
+        </div>
 
     </main>
-
 
     <footer class="container-fluid py-3 border-top">
 
