@@ -226,4 +226,18 @@ We can debug with print statements using:
 console.log('message')
 ```
 
+## JS, React, Node, Vite
+
+HTML/CSS is the body and paint of the car. JS/React is the engine and drivetrain.
+
+React is JS for the frontend. Node is JS for the backend. Node will be receiving all of our HTTP requests. The browser can't talk directly to the DB, so we need a middleman, which is Node. 
+
+React allows us to build our own HTML components and tags. It's just like custom components in Power Apps. 
+
+Vite is a build tool and development server. It takes JSX files (which the browser can't understand) and gives them to the browser as regular HTML/JS. It's very quick and updates immediately with changes to the file. It will be very useful when you're testing out your webpage. 
+
+## Router
+
+Not completely done with the tutorial yet, but react routers make it so that we can navigate to different pages within our website without reloading the page. In other words, we can swap out page components without reloading anything. This makes the website much easier and faster to use. 
+
 
