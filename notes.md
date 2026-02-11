@@ -8,6 +8,20 @@
 - [Canvas](https://byu.instructure.com)
 - [MDN](https://developer.mozilla.org)
 
+## Deployment
+
+Simon:
+
+```
+./deployReact.sh -k ~/keys/production.pem -h yourdomain.click -s simon
+```
+
+Startup:
+
+```
+./deployReact.sh -k ~/keys/production.pem -h yourdomain.click -s startup
+```
+
 ## GitHub
 
 Today I created a repository based off of the template. I've cloned it to my machine and now I'm editing it with VSCode. I'm pretty unfamiliar with this program but hopefully we learn how to use it in this class. Markdown files are also new to me. 
