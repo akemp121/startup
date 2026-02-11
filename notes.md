@@ -240,4 +240,36 @@ Vite is a build tool and development server. It takes JSX files (which the brows
 
 Not completely done with the tutorial yet, but react routers make it so that we can navigate to different pages within our website without reloading the page. In other words, we can swap out page components without reloading anything. This makes the website much easier and faster to use. 
 
+BroswerRouter is the one that you're going to use the most.
+
+We can define the URL paths for our website:
+
+```
+<Route path="/home" element={<Home />} />
+```
+
+We can define ID paths/custom paths like this:
+
+```
+<Route path="/book/:id" element={<Book />} />
+```
+
+Where ":id" can be anything.
+
+We can define an "Error: 404" type page with this:
+
+```
+<Route path="*", element={<NotFound />} />
+```
+
+We can nest routes like this:
+
+```
+<Route path="/books">
+  <Route index element={<BookList />} />
+  <Route path=":id", element={<Book />} />
+  <Route path="new", element={<NewBook />} />
+</Route>
+```
+
 
