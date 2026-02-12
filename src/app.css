@@ -37,7 +37,7 @@
 
 }
 
-body {
+.body {
     font-family: 'Lexend', sans-serif;
     background-color: var(--background-primary);
     color: var(--text-primary);

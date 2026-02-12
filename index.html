@@ -1,112 +1,18 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>ReadForeign</title>
-    <link rel="icon" href="favicon.ico">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="styles.css">
-
 </head>
 
-<body class="d-flex flex-column min-vh-100">
-
-    <header class="container-fluid py-3 border-bottom">
-
-        <div class="row align-items-center">
-
-            <div class="col-md-2">
-
-                <h1 class="m-0">ReadForeign</h1>
-
-            </div>
-
-            <div class="col-md-6">
-
-                <nav>
-                    <menu>
-                        <ul class="d-flex gap-3 list-unstyled m-0 p-0">
-
-                            <li><a href="index.html" class="btn btn-primary rounded-pill header-button active">Home</a>
-                            </li>
-                            <li><a href="read.html" class="btn btn-primary rounded-pill header-button">Read</a></li>
-                            <li><a href="practice.html" class="btn btn-primary rounded-pill header-button">Practice</a>
-                            </li>
-                            <li><a href="about.html" class="btn btn-primary rounded-pill header-button">About</a></li>
-
-                        </ul>
-                    </menu>
-                </nav>
-
-            </div>
-
-            <div class="col-md-3 text-end">
-
-                <p class="m-0">Welcome, <span class="fw-light">axle121</span></p>
-
-            </div>
-
-        </div>
-
-    </header>
-
-    <main class="container-fluid flex-grow-1 d-flex py-3 align-items-center">
-
-        <div class="w-100">
-
-            <div class="row">
-
-                <div class="col-md-6 offset-md-1">
-
-                    <h1 class="fw-light mb-4">Refine your langauge abilities.</h1>
-
-                    <p class="mb-3">Create an account today:</p>
-
-                    <form method="get" action="read.html">
-
-                        <div class="mb-3">
-                            <label class="form-label">Email:</label>
-                            <input type="text" placeholder="youremail@gmail.com" class="form-control rounded-pill" />
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Password:</label>
-                            <input type="password" placeholder="password" class="form-control rounded-pill" />
-                        </div>
-
-                        <div class="mt-4">
-
-                            <button type="submit" class="btn btn-primary rounded-pill">Login</button>
-                            <button type="submit" class="btn btn-primary rounded-pill">Sign Up</button>
-
-                        </div>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-    <footer class="container-fluid py-3 border-top">
-
-        <span>ReadForeign by Alex Kemp. <a href="https://github.com/akemp121/startup">GitHub</a></span>
-
-    </footer>
-
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/index.jsx"></script>
 </body>
 
 </html>
