@@ -1,0 +1,6 @@
+# Dependencies
+node_modules/
+
+# Editor folders
+.vscode/
+.DS_Store
