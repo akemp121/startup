@@ -4,7 +4,7 @@ import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Read } from './read/read';
-import { Practice } from './practice/practcie';
+import { Practice } from './practice/practice';
 import { About } from './about/about';
 
 export default function App() {
@@ -29,16 +29,16 @@ export default function App() {
                                 <ul className="d-flex gap-3 list-unstyled m-0 p-0">
 
                                     <li>
-                                        <NavLink className='nav-link btn btn-primary rounded-pill header-button' to='login'>Home</NavLink>
+                                        <NavLink className='btn btn-primary rounded-pill header-button' to=''>Home</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink className='nav-link btn btn-primary rounded-pill header-button' to='read'>Read</NavLink>
+                                        <NavLink className='btn btn-primary rounded-pill header-button' to='read'>Read</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink className='nav-link btn btn-primary rounded-pill header-button' to='practice'>Practice</NavLink>
+                                        <NavLink className='btn btn-primary rounded-pill header-button' to='practice'>Practice</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink className='nav-link btn btn-primary rounded-pill header-button' to='about'>About</NavLink>
+                                        <NavLink className='btn btn-primary rounded-pill header-button' to='about'>About</NavLink>
                                     </li>
 
                                 </ul>
@@ -57,7 +57,13 @@ export default function App() {
 
             </header>
 
-            <main>App components go here</main>
+            <Routes>
+                <Route path='/' element={<Login />} exact />
+                <Route path='/read' element={<Read />} />
+                <Route path='/practice' element={<Practice />} />
+                <Route path='/about' element={<About />} />
+                <Route path='*' element={<NotFound />} />
+            </Routes>
 
             <footer className="container-fluid py-3 border-top">
 
@@ -68,4 +74,8 @@ export default function App() {
         </div>
 
     </BrowserRouter>
+}
+
+function NotFound() {
+    return <main className="container-fluid text-center">404: Return to sender. Address unknown.</main>;
 }
