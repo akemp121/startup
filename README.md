@@ -67,8 +67,6 @@ For this deliverable I did the following:
 
 ## 🚀 CSS deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
-
 - [x] **Visually appealing colors and layout. No overflowing elements.**
 - [x] **Use of a CSS framework**
 - [x] **All visual elements styled using CSS**
@@ -78,11 +76,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ## 🚀 React part 1: Routing deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
-
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable.
+- [x] **Bundled using Vite** - I installed Vite and used it while developing to preview my site.
+- [x] **Components** - I separated each of the different components into their respective .jsx files.
+- [x] **Router** - Pages are accessed through the router and not through the anchor tags.
 
 ## 🚀 React part 2: Reactivity deliverable
 
