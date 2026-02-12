@@ -26,7 +26,7 @@ export function Login() {
                 <input type="password" placeholder="password" className="form-control rounded-pill" />
               </div>
 
-              <div className="mt-4">
+              <div className="mt-4 d-flex gap-2">
 
                 <button type="submit" className="btn btn-primary rounded-pill">Login</button>
                 <button type="submit" className="btn btn-primary rounded-pill">Sign Up</button>
