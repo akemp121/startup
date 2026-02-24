@@ -127,19 +127,16 @@ export function Read(props) {
 
                                 <fieldset>
 
+                                    <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" className="btn-check" name="difficulty" id="beginner" autocomplete="off" onClick={() => setDifficulty("Beginner")} checked></input>
+                                        <label className="btn btn-primary" htmlFor="beginner">Beginner</label>
 
-                                    <input type="radio" id="beginner" value="Beginner" name="difficulty" onClick={() => setDifficulty("Beginner")} defaultChecked></input>
-                                    <label htmlFor="beginner">Beginner</label>
+                                        <input type="radio" className="btn-check" name="difficulty" id="intermediate" autocomplete="off" onClick={() => setDifficulty("Intermediate")}></input>
+                                        <label className="btn btn-primary" htmlFor="intermediate">Intermediate</label>
 
-                                    <br></br>
-
-                                    <input type="radio" id="intermediate" value="Intermediate" name="difficulty" onClick={() => setDifficulty("Intermediate")}></input>
-                                    <label htmlFor="intermediate">Intermediate</label>
-
-                                    <br></br>
-
-                                    <input type="radio" id="advanced" value="Advanced" name="difficulty" onClick={() => setDifficulty("Hard")}></input>
-                                    <label htmlFor="advanced">Advanced</label>
+                                        <input type="radio" className="btn-check" name="difficulty" id="advanced" autocomplete="off" onClick={() => setDifficulty("Advanced")}></input>
+                                        <label className="btn btn-primary" htmlFor="advanced">Advanced</label>
+                                    </div>
 
 
                                 </fieldset>
