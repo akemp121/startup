@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
@@ -8,6 +9,8 @@ import { Practice } from './practice/practice';
 import { About } from './about/about';
 
 export default function App() {
+    const [savedWords, setSavedWords] = React.useState([]);
+
     return <BrowserRouter>
 
         <div className="body d-flex flex-column min-vh-100">
@@ -59,8 +62,8 @@ export default function App() {
 
             <Routes>
                 <Route path='/' element={<Login />} exact />
-                <Route path='/read' element={<Read />} />
-                <Route path='/practice' element={<Practice />} />
+                <Route path='/read' element={<Read savedWords={savedWords} setSavedWords={setSavedWords} />} />
+                <Route path='/practice' element={<Practice savedWords={savedWords}/>} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
