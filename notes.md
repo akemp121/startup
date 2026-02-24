@@ -310,3 +310,11 @@ const { a, c } = o;
 console.log(a, c);
 // OUTPUT 1, ['fish', 'cats']
 ```
+
+## Java and React
+
+The `export` keyword is like the `public` keyword in Java or C++; it allows the function to be imported into other places.
+
+"Props" are just function arguments from the parent.
+
+The brackets `[]` at the end of the `useEffect` hook indicate a dependency array. This tells the hook when to run the functions that we put inside of it. It's essentially a constructor. If we leave it empty, then it will only run when it's first rendered.
