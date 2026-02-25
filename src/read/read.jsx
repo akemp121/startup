@@ -170,7 +170,7 @@ export function Read(props) {
 
                         <ul className="list-unstyled d-flex flex-wrap gap-2">
 
-                            { interests.length === 0 &&
+                            {interests.length === 0 &&
                                 <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
                                     <span className="me-2 fst-italic fw-light">Add some interests!</span>
@@ -248,19 +248,33 @@ export function Read(props) {
 
                     </div>
 
-                    {
-                        mockArticleData.body.map(
-                            (token) => {
-                                const isSelected = selectedWord && selectedWord.id === token.id;
-                                const isSelectable = token.translation !== null;
-                                return (
-                                    <span key={token.id} onClick={() => {if (isSelectable) {console.log("You selected: ", token.text); setSelectedWord(token);}}}>
-                                        {token.text}
-                                    </span>
-                                );
-                            }
-                        )
-                    }
+                    <p className="article-text">
+
+                        {
+                            mockArticleData.body.map(
+                                (token) => {
+                                    const isSelected = selectedWord && selectedWord.id === token.id;
+                                    const isSelectable = token.translation !== null;
+                                    return (
+                                        <span key={token.id}
+                                            className={`${isSelected ? 'word-selected' : ''} ${isSelectable ? 'word-selectable' : ''}`}
+
+                                            onClick={() => { if (isSelectable) { 
+                                                if (selectedWord.text !== token.text) {
+                                                    setSelectedWord(token)
+                                                } else {
+                                                    setSelectedWord("")
+                                                }}}}>
+                                            {token.text}
+                                        </span>
+                                    );
+                                }
+                            )
+                        }
+
+                    </p>
+
+
 
                 </article>
 

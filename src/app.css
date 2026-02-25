@@ -105,3 +105,26 @@
   --bs-btn-active-border-color: var(--button-color-unpressed);
 
 }
+
+.word-selectable {
+  cursor: pointer;
+  padding: 0.15em 0.05em;
+  margin: 0 -0.05em;
+  transition: 0.15s ease-in-out;
+}
+
+.word-selectable:hover {
+  background-color: var(--background-secondary);
+  color: var(--button-color-unpressed);
+  border-radius: var(--radius-small);
+}
+
+.word-selected {
+  background-color: var(--button-color-unpressed);
+  color: var(--button-color-pressed);
+  border-radius: var(--radius-small);
+}
+
+.article-text {
+  line-height: 2.0;
+}
