@@ -169,13 +169,23 @@ export function Read(props) {
 
                         <ul className="list-unstyled d-flex flex-wrap gap-2">
 
+                            { interests.length === 0 &&
+                                <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+
+                                    <span className="me-2 fst-italic fw-light">Add some interests!</span>
+
+                                </li>
+                            }
+
+
+
                             {
                                 interests.map(
                                     (interest) => (
                                         <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
                                             <span className="me-2">{interest}</span>
-                                            <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => handleRemove({ interest })}></button>
+                                            <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => handleRemove(interest)}></button>
 
                                         </li>
                                     )
@@ -184,7 +194,7 @@ export function Read(props) {
 
                         </ul>
 
-                        <form>
+                        <form onSubmit={(e) => { e.preventDefault(); handleAdd(); }}>
 
                             <div className="container-fluid">
 
@@ -193,7 +203,7 @@ export function Read(props) {
                                     <div className="col-md-8">
 
                                         <input type="text" placeholder="Add new interest..." value={inputValue} onChange={(e) => setInputValue(e.target.value)}
-                                            onKeyDown={(e) => { if (e.key === 'Enter') handleAdd(); }} className="form-control rounded-pill"></input>
+                                            className="form-control rounded-pill"></input>
 
                                     </div>
 
