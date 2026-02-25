@@ -140,15 +140,15 @@ export function Read(props) {
 
                                 <fieldset>
 
-                                    <div className="btn-group rounded-pill overflow-hidden difficulty-pill" role="group" aria-label="Basic radio toggle button group">
+                                    <div className="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                         <input type="radio" className="btn-check" name="difficulty" id="beginner" autoComplete="off" onChange={() => setDifficulty("Beginner")} checked={difficulty === "Beginner"}></input>
-                                        <label className="btn btn-outline-primary rounded-pill" htmlFor="beginner">Beginner</label>
+                                        <label className="btn btn-outline-primary" htmlFor="beginner">Beginner</label>
 
                                         <input type="radio" className="btn-check" name="difficulty" id="intermediate" autoComplete="off" onChange={() => setDifficulty("Intermediate")}></input>
-                                        <label className="btn btn-outline-primary rounded-pill" htmlFor="intermediate">Intermediate</label>
+                                        <label className="btn btn-outline-primary" htmlFor="intermediate">Intermediate</label>
 
                                         <input type="radio" className="btn-check" name="difficulty" id="advanced" autoComplete="off" onChange={() => setDifficulty("Advanced")}></input>
-                                        <label className="btn btn-outline-primary rounded-pill" htmlFor="advanced">Advanced</label>
+                                        <label className="btn btn-outline-primary" htmlFor="advanced">Advanced</label>
                                     </div>
 
 
@@ -182,8 +182,8 @@ export function Read(props) {
 
                             {
                                 interests.map(
-                                    (interest) => (
-                                        <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+                                    (interest, index) => (
+                                        <li key={index} className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
                                             <span className="me-2">{interest}</span>
                                             <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => handleRemove(interest)}></button>
