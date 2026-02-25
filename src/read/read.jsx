@@ -5,6 +5,7 @@ export function Read(props) {
     const [targetLanguage, setTargetLanguage] = React.useState("Italian");
     const [difficulty, setDifficulty] = React.useState("Beginner");
     const [interests, setInterests] = React.useState([]);
+    const [inputValue, setInputValue] = React.useState("");
 
     const mockArticleData = {
         id: "article-001",
@@ -72,6 +73,17 @@ export function Read(props) {
         { id: 'fr', name: 'French' },
         { id: 'de', name: 'German' }
     ];
+
+    const handleAdd = () => {
+        if (inputValue.trim() !== "" && !interests.includes(inputValue)) {
+            setInterests([...interests, inputValue]);
+            setInputValue("");
+        }
+    };
+
+    const handleRemove = (interestToDelete) => {
+        setInterests(interests.filter(interest => interest !== interestToDelete));
+    };
 
     return (
         <main className="container-fluid flex-grow-1 d-flex py-3">
@@ -157,26 +169,18 @@ export function Read(props) {
 
                         <ul className="list-unstyled d-flex flex-wrap gap-2">
 
-                            <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+                            {
+                                interests.map(
+                                    (interest) => (
+                                        <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
-                                <span className="me-2">Food</span>
-                                <button type="button" className="btn-close" style={{ fontSize: '12px' }}></button>
+                                            <span className="me-2">{interest}</span>
+                                            <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => handleRemove({ interest })}></button>
 
-                            </li>
-
-                            <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
-
-                                <span className="me-2">History</span>
-                                <button type="button" className="btn-close" style={{ fontSize: '12px' }}></button>
-
-                            </li>
-
-                            <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
-
-                                <span className="me-2">Cars</span>
-                                <button type="button" className="btn-close" style={{ fontSize: '12px' }}></button>
-
-                            </li>
+                                        </li>
+                                    )
+                                )
+                            }
 
                         </ul>
 
@@ -188,14 +192,14 @@ export function Read(props) {
 
                                     <div className="col-md-8">
 
-                                        <input type="text" placeholder="Add new interest..."
-                                            className="form-control rounded-pill"></input>
+                                        <input type="text" placeholder="Add new interest..." value={inputValue} onChange={(e) => setInputValue(e.target.value)}
+                                            onKeyDown={(e) => { if (e.key === 'Enter') handleAdd(); }} className="form-control rounded-pill"></input>
 
                                     </div>
 
                                     <div className="col-md-3">
 
-                                        <button type="button" className="btn btn-primary rounded-pill">Add</button>
+                                        <button type="button" className="btn btn-primary rounded-pill" onClick={handleAdd}>Add</button>
 
                                     </div>
 
