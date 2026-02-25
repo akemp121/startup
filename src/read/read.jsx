@@ -6,6 +6,7 @@ export function Read(props) {
     const [difficulty, setDifficulty] = React.useState("Beginner");
     const [interests, setInterests] = React.useState([]);
     const [inputValue, setInputValue] = React.useState("");
+    const [selectedWord, setSelectedWord] = React.useState("");
 
     const mockArticleData = {
         id: "article-001",
@@ -237,46 +238,29 @@ export function Read(props) {
 
                     <div className="my-3">
 
-                        <h1>La Pasta: Un Simbolo Italiano</h1>
+                        <h1>{mockArticleData.title}</h1>
 
                     </div>
 
                     <div className="mb-3">
 
-                        <h3 className="fw-light">By Il Cuore d'Italia</h3>
+                        <h3 className="fw-light">{mockArticleData.author}</h3>
 
                     </div>
 
-                    <p>
-
-                        Molte persone pensano che Marco Polo abbia portato la pasta
-                        in Italia dalla Cina nel 1295. In realtà, questa è solo una leggenda.
-                        La storia della pasta è molto più antica e complessa. Già ai tempi
-                        dell'Antica Roma esistevano piatti simili, come le "lagane",
-                        che erano strisce di pasta cotte al forno, antenate delle moderne lasagne.
-
-                    </p>
-
-                    <p>
-
-                        Tuttavia, la pasta secca come la conosciamo oggi ha origini arabe.
-                        Durante il Medioevo, gli arabi introdussero in Sicilia l'arte di essiccare
-                        la pasta al sole. Questa tecnica era fondamentale perché permetteva di
-                        conservare il cibo per lunghi periodi, rendendolo perfetto per i viaggi
-                        in mare e per evitare le carestie.
-
-                    </p>
-
-                    <p>
-
-                        Per secoli, la pasta è stata mangiata "in bianco", condita solo con
-                        formaggio e spezie. La vera rivoluzione è arrivata nel XIX secolo a Napoli,
-                        quando gli italiani hanno iniziato ad aggiungere il pomodoro, un frutto
-                        importato dalle Americhe. Oggi esistono più di 300 formati di pasta e,
-                        per gli italiani, un piatto di spaghetti non è solo cibo: è un simbolo di cultura,
-                        famiglia e unità nazionale.
-
-                    </p>
+                    {
+                        mockArticleData.body.map(
+                            (token) => {
+                                const isSelected = selectedWord && selectedWord.id === token.id;
+                                const isSelectable = token.translation !== null;
+                                return (
+                                    <span key={token.id} onClick={() => {if (isSelectable) {console.log("You selected: ", token.text); setSelectedWord(token);}}}>
+                                        {token.text}
+                                    </span>
+                                );
+                            }
+                        )
+                    }
 
                 </article>
 
