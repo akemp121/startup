@@ -127,15 +127,15 @@ export function Read(props) {
 
                                 <fieldset>
 
-                                    <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                        <input type="radio" className="btn-check" name="difficulty" id="beginner" autocomplete="off" onClick={() => setDifficulty("Beginner")} checked></input>
-                                        <label className="btn btn-primary" htmlFor="beginner">Beginner</label>
+                                    <div className="btn-group rounded-pill overflow-hidden difficulty-pill" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" className="btn-check" name="difficulty" id="beginner" autoComplete="off" onChange={() => setDifficulty("Beginner")} checked={difficulty === "Beginner"}></input>
+                                        <label className="btn btn-outline-primary rounded-pill" htmlFor="beginner">Beginner</label>
 
-                                        <input type="radio" className="btn-check" name="difficulty" id="intermediate" autocomplete="off" onClick={() => setDifficulty("Intermediate")}></input>
-                                        <label className="btn btn-primary" htmlFor="intermediate">Intermediate</label>
+                                        <input type="radio" className="btn-check" name="difficulty" id="intermediate" autoComplete="off" onChange={() => setDifficulty("Intermediate")}></input>
+                                        <label className="btn btn-outline-primary rounded-pill" htmlFor="intermediate">Intermediate</label>
 
-                                        <input type="radio" className="btn-check" name="difficulty" id="advanced" autocomplete="off" onClick={() => setDifficulty("Advanced")}></input>
-                                        <label className="btn btn-primary" htmlFor="advanced">Advanced</label>
+                                        <input type="radio" className="btn-check" name="difficulty" id="advanced" autoComplete="off" onChange={() => setDifficulty("Advanced")}></input>
+                                        <label className="btn btn-outline-primary rounded-pill" htmlFor="advanced">Advanced</label>
                                     </div>
 
 

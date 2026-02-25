@@ -60,6 +60,29 @@
   --bs-btn-active-border-color: var(--button-color-pressed);
 }
 
+.btn-outline-primary {
+
+  --bs-btn-border-width: 0px;
+
+  --bs-btn-color: var(--button-text-pressed);
+  --bs-btn-bg: var(--background-secondary);
+  --bs-btn-border-color: var(--button-text-pressed);
+
+  --bs-btn-hover-color: var(--button-text-pressed);
+  --bs-btn-hover-bg: var(--background-primary);
+  --bs-btn-hover-border-color: var(--button-text-pressed);
+
+  --bs-btn-active-color: var(--button-text-unpressed);
+  --bs-btn-active-bg: var(--button-color-unpressed);
+  --bs-btn-active-border-color: var(--button-color-unpressed);
+}
+
+.difficulty-pill {
+  background-color: var(--background-secondary);
+}
+
+
+
 .header-button {
 
   --bs-btn-color: var(--button-text-pressed);
