@@ -171,7 +171,7 @@ export function Read(props) {
                         <ul className="list-unstyled d-flex flex-wrap gap-2">
 
                             {interests.length === 0 &&
-                                <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+                                <li className="border word-pill bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
                                     <span className="me-2 fst-italic fw-light">Add some interests!</span>
 
@@ -183,7 +183,7 @@ export function Read(props) {
                             {
                                 interests.map(
                                     (interest, index) => (
-                                        <li key={index} className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+                                        <li key={index} className="border word-pill bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
                                             <span className="me-2">{interest}</span>
                                             <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => handleRemove(interest)}></button>
@@ -259,12 +259,15 @@ export function Read(props) {
                                         <span key={token.id}
                                             className={`${isSelected ? 'word-selected' : ''} ${isSelectable ? 'word-selectable' : ''}`}
 
-                                            onClick={() => { if (isSelectable) { 
-                                                if (selectedWord.text !== token.text) {
-                                                    setSelectedWord(token)
-                                                } else {
-                                                    setSelectedWord("")
-                                                }}}}>
+                                            onClick={() => {
+                                                if (isSelectable) {
+                                                    if (selectedWord.text !== token.text) {
+                                                        setSelectedWord(token)
+                                                    } else {
+                                                        setSelectedWord("")
+                                                    }
+                                                }
+                                            }}>
                                             {token.text}
                                         </span>
                                     );

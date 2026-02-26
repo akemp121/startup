@@ -128,3 +128,21 @@
 .article-text {
   line-height: 2.0;
 }
+
+@keyframes add {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.word-pill {
+  animation: add 0.3s;
+}
