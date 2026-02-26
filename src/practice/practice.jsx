@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Practice() {
+export function Practice(props) {
   return (
     <main className="container-fluid flex-grow-1 d-flex py-3">
 
@@ -14,40 +14,19 @@ export function Practice() {
 
           <ul className="list-unstyled d-flex gap-2">
 
-            <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+            {
+              props.savedWords.map(
+                (word, index) => (
 
-              <span className="me-2">cavolo</span>
-              <button type="button" className="btn-close" style={{fontSize: '12px'}}></button>
+                  <li key={index} className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
-            </li>
+                    <span className="me-2">{word}</span>
+                    <button type="button" className="btn-close" style={{ fontSize: '12px' }}></button>
 
-            <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
-
-              <span className="me-2">giorno</span>
-              <button type="button" className="btn-close" style={{fontSize: '12px'}}></button>
-
-            </li>
-
-            <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
-
-              <span className="me-2">conoscere</span>
-              <button type="button" className="btn-close" style={{fontSize: '12px'}}></button>
-
-            </li>
-
-            <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
-
-              <span className="me-2">ghiaccio</span>
-              <button type="button" className="btn-close" style={{fontSize: '12px'}}></button>
-
-            </li>
-
-            <li className="border bg-light rounded-pill px-3 py-1 d-flex align-items-center">
-
-              <span className="me-2">slancio</span>
-              <button type="button" className="btn-close" style={{fontSize: '12px'}}></button>
-
-            </li>
+                  </li>
+                )
+              )
+            }
 
           </ul>
 

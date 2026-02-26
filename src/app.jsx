@@ -9,7 +9,7 @@ import { Practice } from './practice/practice';
 import { About } from './about/about';
 
 export default function App() {
-    const [savedWords, setSavedWords] = React.useState([]);
+    const [savedWords, setSavedWords] = React.useState(["slancio", "cavolo", "ghiaccio", "cosa"]);
 
     return <BrowserRouter>
 
@@ -63,7 +63,7 @@ export default function App() {
             <Routes>
                 <Route path='/' element={<Login />} exact />
                 <Route path='/read' element={<Read savedWords={savedWords} setSavedWords={setSavedWords} />} />
-                <Route path='/practice' element={<Practice savedWords={savedWords}/>} />
+                <Route path='/practice' element={<Practice savedWords={savedWords} setSavedWords={setSavedWords}/>} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
