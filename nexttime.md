@@ -1,7 +1,5 @@
 ## Next time
 
-- Find out about dynamic class association that Gemini suggested
-- Add CSS for the words to show the different cursor and change when hovered over
-- Fix the page to adapt better to different screen sizes
-- Show saved words in the practice screen
-- Make the pop up modal component
+- Make the pop up modal component.
+- Learn more about containers and try and space things better. UI refresh.
+- Finish and deploy.
