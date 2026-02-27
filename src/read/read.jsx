@@ -1,4 +1,5 @@
 import React from 'react';
+import { Popup } from '/src/components/popup.jsx';
 
 export function Read(props) {
 
@@ -84,6 +85,13 @@ export function Read(props) {
 
     const handleRemove = (interestToDelete) => {
         setInterests(interests.filter(interest => interest !== interestToDelete));
+    };
+
+    const handleSave = () => {
+        if (selectedWord.text.trim() !== "" && !props.savedWords.includes(selectedWord.text)) {
+            props.setSavedWords([...props.savedWords, selectedWord]);
+        }
+        setSelectedWord("");
     };
 
     return (
@@ -261,7 +269,9 @@ export function Read(props) {
 
                                             onClick={() => {
                                                 if (isSelectable) {
-                                                    if (selectedWord.text !== token.text) {
+                                                    if (selectedWord === null) {
+                                                        setSelectedWord(token)
+                                                    } else if (selectedWord.text !== token.text) {
                                                         setSelectedWord(token)
                                                     } else {
                                                         setSelectedWord("")
@@ -277,7 +287,7 @@ export function Read(props) {
 
                     </p>
 
-
+                    <Popup selectedWord={selectedWord} onSave={handleSave} onClose={() => setSelectedWord("")}/>
 
                 </article>
 

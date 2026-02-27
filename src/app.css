@@ -1,46 +1,46 @@
 :root {
 
-    /* Colors */
+  /* Colors */
 
-    --background-primary: #ffffff;
-    --background-secondary: #eadbcb;
+  --background-primary: #ffffff;
+  --background-secondary: #eadbcb;
 
-    --text-primary: #403126;
-    --text-secondary: #eadbcb;
+  --text-primary: #403126;
+  --text-secondary: #eadbcb;
 
-    --button-color-pressed: #dcc1a7;
-    --button-color-unpressed: #6b482c;
+  --button-color-pressed: #dcc1a7;
+  --button-color-unpressed: #6b482c;
 
-    --button-text-pressed: #403126;
-    --button-text-unpressed: #eadbcb;
+  --button-text-pressed: #403126;
+  --button-text-unpressed: #eadbcb;
 
-    /* Spacing */
+  /* Spacing */
 
-    --spacing-XS: 8px;
-    --spacing-S: 12px;
-    --spacing-M: 16px;
-    --spacing-L: 20px;
-    --spacing-XL: 24px;
+  --spacing-XS: 8px;
+  --spacing-S: 12px;
+  --spacing-M: 16px;
+  --spacing-L: 20px;
+  --spacing-XL: 24px;
 
-    /* Radii */
+  /* Radii */
 
-    --radius-circle: 50rem;
-    --radius-medium: 5rem;
-    --radius-small: 1rem;
+  --radius-circle: 50rem;
+  --radius-medium: 5rem;
+  --radius-small: 1rem;
 
-    /* Font Weights */
-    
-    --weight-bold: 700;
-    --weight-semibold: 600;
-    --weight-normal: 400;
-    --weight-light: 200;
+  /* Font Weights */
+
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-normal: 400;
+  --weight-light: 200;
 
 }
 
 .body {
-    font-family: 'Lexend', sans-serif;
-    background-color: var(--background-primary);
-    color: var(--text-primary);
+  font-family: 'Lexend', sans-serif;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
 }
 
 .btn-primary {
@@ -134,9 +134,11 @@
     opacity: 0;
     transform: scale(0.5);
   }
+
   60% {
     transform: scale(1.1);
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -144,5 +146,22 @@
 }
 
 .word-pill {
+  animation: add 0.3s;
+}
+
+.popup-card {
+  position: fixed;
+  bottom: 10rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+  max-width: 90vw;
+  width: auto;
   animation: add 0.3s;
 }

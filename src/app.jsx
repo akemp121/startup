@@ -9,7 +9,7 @@ import { Practice } from './practice/practice';
 import { About } from './about/about';
 
 export default function App() {
-    const [savedWords, setSavedWords] = React.useState(["slancio", "cavolo", "ghiaccio", "cosa"]);
+    const [savedWords, setSavedWords] = React.useState([{ id: 35, text: "realtà,", translation: "reality," }]);
 
     return <BrowserRouter>
 

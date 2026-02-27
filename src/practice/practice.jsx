@@ -2,13 +2,22 @@ import React from 'react';
 
 export function Practice(props) {
 
-  const [inputValue, setInputValue] = React.useState("");
+  const [nativeInputValue, setNativeInputValue] = React.useState("");
+  const [targetInputValue, setTargetInputValue] = React.useState("");
 
   const handleAdd = () => {
-    if (inputValue.trim() !== "" && !props.savedWords.includes(inputValue)) {
-      props.setSavedWords([...props.savedWords, inputValue]);
-      setInputValue("");
+    if (nativeInputValue === "" || targetInputValue === "") return;
+    
+    if (props.savedWords.some((word) => word.text.toLowerCase() === targetInputValue.trim().toLowerCase())) {
+      return;
     }
+
+    const newWord = { id: Date.now(), text: targetInputValue, translation: nativeInputValue };
+
+    props.setSavedWords([...props.savedWords, newWord]);
+  
+    setNativeInputValue("");
+    setTargetInputValue("");
   };
 
   const handleRemove = (wordToDelete) => {
@@ -34,7 +43,10 @@ export function Practice(props) {
 
                 <div className="col-md-8">
 
-                  <input type="text" placeholder="Add new word..." value={inputValue} onChange={(e) => setInputValue(e.target.value)}
+                  <input type="text" placeholder="Native text" value={nativeInputValue} onChange={(e) => setNativeInputValue(e.target.value)}
+                    className="form-control rounded-pill"></input>
+
+                  <input type="text" placeholder="Target text" value={targetInputValue} onChange={(e) => setTargetInputValue(e.target.value)}
                     className="form-control rounded-pill"></input>
 
                 </div>
@@ -59,12 +71,12 @@ export function Practice(props) {
 
             {
               props.savedWords.map(
-                (word, index) => (
+                (token) => (
 
-                  <li key={index} className="border word-pill bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+                  <li key={token.id} className="border word-pill bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
-                    <span className="me-2">{word}</span>
-                    <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => handleRemove(word)}></button>
+                    <span className="me-2">{token.text} = <span className="fw-light">{token.translation}</span></span>
+                    <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => handleRemove(token)}></button>
 
                   </li>
                 )
