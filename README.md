@@ -84,8 +84,8 @@ For this deliverable I did the following:
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - Look in the "read" and "practice" sections. All of the reactivity was implemented there. Try clicking on words in the article text!
+- [x] **Hooks** - I made state variables in all pages applicable. 
 
 ## 🚀 Service deliverable
 
