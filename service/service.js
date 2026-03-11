@@ -36,8 +36,14 @@ function setAuthCookie(res, user) {
   res.cookie('token', user.token, {
     secure: true,
     httpOnly: true,
-    sameSite: strict
+    sameSite: 'strict'
   });
+}
+
+// delete token
+function clearAuthCookie(res, user) {
+  delete user.token;
+  res.clearCookie('token');
 }
 
 // registration
@@ -46,24 +52,41 @@ app.post('/api/auth', async (req, res) => {
     res.status(409).send({ msg: 'Existing user!' });
   } else {
     const userRecord = await createUser(req.body.email, req.body.password);
-    setAuthCookie(res, userRecord)
+    setAuthCookie(res, userRecord);
     res.send({ email: userRecord.email });
   }
 });
 
 // login
 app.put('/api/auth', async (req, res) => {
-  res.send({ email: 'marta@id.com' });
+  const userRecord = await getUser('email', req.body.email);
+  if (userRecord && (await bcrypt.compare(req.body.password, userRecord.pass))) {
+    setAuthCookie(res, userRecord);
+    res.send({ email: userRecord.email });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
 });
 
 // logout
 app.delete('/api/auth', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await getUser('token', token);
+  if (userRecord) {
+    clearAuthCookie(res, userRecord);
+  }
   res.send({});
 });
 
 // getMe
 app.get('/api/user', async (req, res) => {
-  res.send({ email: 'marta@id.com' });
+  const token = req.cookies['token'];
+  const userRecord = await getUser('token', token);
+  if (userRecord) {
+    res.send({ email: userRecord.email });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
 });
 
 const port = 3000;
