@@ -37,12 +37,20 @@ export default function App() {
                                     <li>
                                         <NavLink className='btn btn-primary rounded-pill header-button' to=''>Home</NavLink>
                                     </li>
-                                    <li>
-                                        <NavLink className='btn btn-primary rounded-pill header-button' to='read'>Read</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink className='btn btn-primary rounded-pill header-button' to='practice'>Practice</NavLink>
-                                    </li>
+                                    {
+                                        (authState === authState.Authenticated) && (
+                                            <li>
+                                                <NavLink className='btn btn-primary rounded-pill header-button' to='read'>Read</NavLink>
+                                            </li>
+                                        )
+                                    }
+                                    {
+                                        (authState === authState.Authenticated) && (
+                                            <li>
+                                                <NavLink className='btn btn-primary rounded-pill header-button' to='practice'>Practice</NavLink>
+                                            </li>
+                                        )
+                                    }
                                     <li>
                                         <NavLink className='btn btn-primary rounded-pill header-button' to='about'>About</NavLink>
                                     </li>
@@ -55,7 +63,11 @@ export default function App() {
 
                     <div className="col-md-3 text-end">
 
-                        <p className="m-0">Welcome, <span className="fw-light">axle121</span></p>
+                        {
+                            (authState === authState.Authenticated) && (
+                                <p className="m-0">Welcome, <span className="fw-light">{userName}</span></p>
+                            )
+                        }
 
                     </div>
 
@@ -66,7 +78,7 @@ export default function App() {
             <Routes>
                 <Route path='/' element={<Login />} exact />
                 <Route path='/read' element={<Read savedWords={savedWords} setSavedWords={setSavedWords} />} />
-                <Route path='/practice' element={<Practice savedWords={savedWords} setSavedWords={setSavedWords}/>} />
+                <Route path='/practice' element={<Practice savedWords={savedWords} setSavedWords={setSavedWords} />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
