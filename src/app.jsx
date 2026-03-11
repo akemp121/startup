@@ -10,6 +10,9 @@ import { About } from './about/about';
 
 export default function App() {
     const [savedWords, setSavedWords] = React.useState([{ id: 35, text: "realtà,", translation: "reality," }]);
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [authState, setAuthState] = React.useState(currentAuthState);
 
     return <BrowserRouter>
 

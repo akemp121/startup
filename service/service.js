@@ -7,8 +7,10 @@ app.use(cookieParser());
 app.use(express.json());
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
+app.use(express.static('public'));
 
 const users = [];
+const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 async function createUser(email, password) {
   const hashedPass = await bcrypt.hash(password, 10);
@@ -111,7 +113,6 @@ apiRouter.get('/auth/user', async (req, res) => {
   }
 });
 
-const port = 3000;
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
