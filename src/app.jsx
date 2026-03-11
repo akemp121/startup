@@ -7,6 +7,7 @@ import { Login } from './login/login';
 import { Read } from './read/read';
 import { Practice } from './practice/practice';
 import { About } from './about/about';
+import { AuthState } from './login/authState';
 
 export default function App() {
     const [savedWords, setSavedWords] = React.useState([{ id: 35, text: "realtà,", translation: "reality," }]);
@@ -38,14 +39,14 @@ export default function App() {
                                         <NavLink className='btn btn-primary rounded-pill header-button' to=''>Home</NavLink>
                                     </li>
                                     {
-                                        (authState === authState.Authenticated) && (
+                                        (authState === AuthState.Authenticated) && (
                                             <li>
                                                 <NavLink className='btn btn-primary rounded-pill header-button' to='read'>Read</NavLink>
                                             </li>
                                         )
                                     }
                                     {
-                                        (authState === authState.Authenticated) && (
+                                        (authState === AuthState.Authenticated) && (
                                             <li>
                                                 <NavLink className='btn btn-primary rounded-pill header-button' to='practice'>Practice</NavLink>
                                             </li>
@@ -64,7 +65,7 @@ export default function App() {
                     <div className="col-md-3 text-end">
 
                         {
-                            (authState === authState.Authenticated) && (
+                            (authState === AuthState.Authenticated) && (
                                 <p className="m-0">Welcome, <span className="fw-light">{userName}</span></p>
                             )
                         }
