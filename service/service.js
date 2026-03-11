@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const bcrypt = require('bcryptjs');
+const uuid = require('uuid');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 app.use(express.json());
 
 const users = [];
@@ -26,12 +29,24 @@ async function getUser(field, value) {
   return null;
 }
 
+// cookie token
+function setAuthCookie(res, user) {
+  user.token = uuid.v4();
+
+  res.cookie('token', user.token, {
+    secure: true,
+    httpOnly: true,
+    sameSite: strict
+  });
+}
+
 // registration
 app.post('/api/auth', async (req, res) => {
   if (await getUser('email', req.body.email)) {
     res.status(409).send({ msg: 'Existing user!' });
   } else {
     const userRecord = await createUser(req.body.email, req.body.password);
+    setAuthCookie(res, userRecord)
     res.send({ email: userRecord.email });
   }
 });
