@@ -5,6 +5,8 @@ const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 app.use(express.json());
+let apiRouter = express.Router();
+app.use(`/api`, apiRouter);
 
 const users = [];
 
@@ -20,6 +22,16 @@ async function createUser(email, password) {
 
   return userRecord;
 }
+
+const verifyAuth = async (req, res, next) => {
+  const token = req.cookies['token'];
+  const user = await getUser('token', token);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+};
 
 // we're given a field (email or pass), then we find the user based on that
 async function getUser(field, value) {
@@ -46,8 +58,18 @@ function clearAuthCookie(res, user) {
   res.clearCookie('token');
 }
 
+// Default error handler
+app.use(function (err, req, res, next) {
+  res.status(500).send({ type: err.name, message: err.message });
+});
+
+// Return the application's default page if the path is unknown
+app.use((_req, res) => {
+  res.sendFile('index.html', { root: 'public' });
+});
+
 // registration
-app.post('/api/auth', async (req, res) => {
+apiRouter.post('/auth/create', async (req, res) => {
   if (await getUser('email', req.body.email)) {
     res.status(409).send({ msg: 'Existing user!' });
   } else {
@@ -58,7 +80,7 @@ app.post('/api/auth', async (req, res) => {
 });
 
 // login
-app.put('/api/auth', async (req, res) => {
+apiRouter.post('/auth/login', async (req, res) => {
   const userRecord = await getUser('email', req.body.email);
   if (userRecord && (await bcrypt.compare(req.body.password, userRecord.pass))) {
     setAuthCookie(res, userRecord);
@@ -69,17 +91,17 @@ app.put('/api/auth', async (req, res) => {
 });
 
 // logout
-app.delete('/api/auth', async (req, res) => {
+apiRouter.delete('/auth/logout', async (req, res) => {
   const token = req.cookies['token'];
   const userRecord = await getUser('token', token);
   if (userRecord) {
     clearAuthCookie(res, userRecord);
   }
-  res.send({});
+  res.status(204).end();
 });
 
 // getMe
-app.get('/api/user', async (req, res) => {
+apiRouter.get('/auth/user', async (req, res) => {
   const token = req.cookies['token'];
   const userRecord = await getUser('token', token);
   if (userRecord) {
