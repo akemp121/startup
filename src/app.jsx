@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes, Navigate } from 'react-router-dom';
 import { Login } from './login/login';
 import { Read } from './read/read';
 import { Practice } from './practice/practice';
@@ -47,9 +47,13 @@ export default function App() {
                             <menu>
                                 <ul className="d-flex gap-3 list-unstyled m-0 p-0">
 
-                                    <li>
-                                        <NavLink className='btn btn-primary rounded-pill header-button' to=''>Home</NavLink>
-                                    </li>
+                                    {
+                                        (authState === AuthState.Unauthenticated) && (
+                                            <li>
+                                                <NavLink className='btn btn-primary rounded-pill header-button' to=''>Home</NavLink>
+                                            </li>
+                                        )
+                                    }
                                     {
                                         (authState === AuthState.Authenticated) && (
                                             <li>
@@ -99,7 +103,13 @@ export default function App() {
             </header>
 
             <Routes>
-                <Route path='/' element={<Login authState={authState} setAuthState={setAuthState} setUserName={setUserName} />} exact />
+                <Route 
+                    path='/' element={
+                        authState === AuthState.Authenticated ? 
+                        <Navigate to='/read' replace /> :
+                        <Login authState={authState} setAuthState={setAuthState} setUserName={setUserName} />
+                    }
+                />
                 <Route path='/read' element={<Read savedWords={savedWords} setSavedWords={setSavedWords} />} />
                 <Route path='/practice' element={<Practice savedWords={savedWords} setSavedWords={setSavedWords} />} />
                 <Route path='/about' element={<About />} />
