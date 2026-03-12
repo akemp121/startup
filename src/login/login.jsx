@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Login() {
+export function Login(props) {
   return (
     <main className="container-fluid flex-grow-1 d-flex py-3 align-items-center">
 

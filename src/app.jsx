@@ -15,6 +15,18 @@ export default function App() {
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
 
+    async function logout() {
+        try {
+            await fetch('/api/auth/logout', {
+                method: 'delete'
+            })
+        } catch (error) {
+            console.log('Logout failed!');
+        } finally {
+            localStorage.removeItem('userName');
+            setAuthState(AuthState.Unauthenticated);
+        }
+    }
     return <BrowserRouter>
 
         <div className="body d-flex flex-column min-vh-100">
@@ -62,13 +74,23 @@ export default function App() {
 
                     </div>
 
-                    <div className="col-md-3 text-end">
+                    <div className="col-md-4">
 
-                        {
-                            (authState === AuthState.Authenticated) && (
-                                <p className="m-0">Welcome, <span className="fw-light">{userName}</span></p>
-                            )
-                        }
+                        <div className="d-flex flex-row gap-3 justify-content-end align-items-center">
+
+                            {
+                                (authState === AuthState.Authenticated) && (
+                                    <p className="mb-0">Welcome, <span className="fw-light">{userName}</span></p>
+                                )
+                            }
+
+                            {
+                                (authState === AuthState.Authenticated) && (
+                                    <button type="button" className="btn btn-primary rounded-pill" onClick={logout}>Logout</button>
+                                )
+                            }
+
+                        </div>
 
                     </div>
 
@@ -77,7 +99,7 @@ export default function App() {
             </header>
 
             <Routes>
-                <Route path='/' element={<Login />} exact />
+                <Route path='/' element={<Login authState={authState} setAuthState={setAuthState} setUserName={setUserName} />} exact />
                 <Route path='/read' element={<Read savedWords={savedWords} setSavedWords={setSavedWords} />} />
                 <Route path='/practice' element={<Practice savedWords={savedWords} setSavedWords={setSavedWords} />} />
                 <Route path='/about' element={<About />} />
