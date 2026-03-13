@@ -107,7 +107,10 @@ export default function App() {
                     path='/' element={
                         authState === AuthState.Authenticated ? 
                         <Navigate to='/read' replace /> :
-                        <Login authState={authState} setAuthState={setAuthState} setUserName={setUserName} />
+                        <Login 
+                            userName={userName}
+                            onLogin={(userLoginName) => {setAuthState(AuthState.Authenticated); setUserName(userLoginName)}} 
+                        />
                     }
                 />
                 <Route path='/read' element={<Read savedWords={savedWords} setSavedWords={setSavedWords} />} />
