@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './app.css';
-import { BrowserRouter, NavLink, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import { Login } from './login/login';
 import { Read } from './read/read';
 import { Practice } from './practice/practice';
@@ -14,6 +14,8 @@ export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
+
+    
 
     async function logout() {
         try {
@@ -109,7 +111,7 @@ export default function App() {
                         <Navigate to='/read' replace /> :
                         <Login 
                             userName={userName}
-                            onLogin={(userLoginName) => {setAuthState(AuthState.Authenticated); setUserName(userLoginName)}} 
+                            onLogin={(userLoginName) => {setAuthState(AuthState.Authenticated); setUserName(userLoginName);}} 
                         />
                     }
                 />

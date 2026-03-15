@@ -4,15 +4,19 @@ export function Login(props) {
   const [userName, setUserName] = React.useState(props.userName);
   const [password, setPassword] = React.useState('');
 
-  async function loginUser() {
+
+  async function loginUser(e) {
+    e.preventDefault();
     loginOrCreate(`/api/auth/login`);
   }
 
-  async function createUser() {
+  async function createUser(e) {
+    e.preventDefault();
     loginOrCreate(`/api/auth/create`);
   }
 
-  async function loginOrCreate(path) {
+  async function loginOrCreate(endpoint) {
+
     const response = await fetch(
       endpoint, {
       method: 'post',
@@ -20,6 +24,7 @@ export function Login(props) {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
+      credentials: 'include'
     }
     );
 
@@ -45,7 +50,7 @@ export function Login(props) {
 
             <p className="mb-3">Create an account today:</p>
 
-            <form method="get" action="read.html">
+            <form>
 
               <div className="mb-3">
                 <label className="form-label">Email:</label>
@@ -61,8 +66,8 @@ export function Login(props) {
 
               <div className="mt-4 d-flex gap-2">
 
-                <button type="submit" className="btn btn-primary rounded-pill" onClick={loginUser}>Login</button>
-                <button type="submit" className="btn btn-primary rounded-pill" onClick={createUser}>Sign Up</button>
+                <button type="submit" className="btn btn-primary rounded-pill" onClick={(e) => loginUser(e)}>Login</button>
+                <button type="submit" className="btn btn-primary rounded-pill" onClick={(e) => createUser(e)}>Sign Up</button>
 
               </div>
 
