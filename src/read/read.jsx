@@ -26,7 +26,7 @@ export function Read(props) {
             response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
-                    "Authorization: ": `Bearer ${"nothing"}`,
+                    "Authorization: ": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(
@@ -74,6 +74,17 @@ export function Read(props) {
                 )
             });
         
+            if (!response.ok) {
+                throw new Error(`Error retreiving data! Details: ${response.status}`);
+            }
+
+            const data = reponse.json();
+
+            const aiTextOutput = data.choices[0].message.content;
+
+            const finalArticleObject = JSON.parse(aiTextOutput);
+            setLangArticle(finalArticleObject);
+
         } catch (error) {
             setLangArticle(
                 {
@@ -89,8 +100,6 @@ export function Read(props) {
                     ]
                 }
             )
-        } finally {
-            setLangArticle(JSON.parse(response));
         }
     }
 
@@ -260,7 +269,7 @@ export function Read(props) {
 
                         <form>
 
-                            <button type="button" className="btn btn-primary rounded-pill">Get New Article</button>
+                            <button type="button" className="btn btn-primary rounded-pill" onClick={fetchArticle}>Get New Article</button>
 
                         </form>
 
