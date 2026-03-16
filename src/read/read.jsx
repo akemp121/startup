@@ -23,10 +23,10 @@ export function Read(props) {
     async function fetchArticle() {
         const interestsString = interests.join(", ");
         try {
-            response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
-                    "Authorization: ": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
+                    "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(
@@ -35,13 +35,13 @@ export function Read(props) {
                         messages: [
                             {
                                 role: "system",
-                                message: `
+                                content: `
                                     You are a language learning API. You will be generating or retreiving 
                                     a short reading passage.
 
                                     You must return the response STRICTLY as a valid JSON object matching 
                                     the exact schema below. Do not include any introductory text, explanations, 
-                                    or markdown formatting (like \```json). Just output the raw JSON.
+                                    or markdown formatting (like \`\`\`json). Just output the raw JSON.
 
                                     Rules for the "body" array:
                                     1. Break the passage down into individual tokens (words and spaces).
@@ -65,7 +65,7 @@ export function Read(props) {
                             },
                             {
                                 role: "user",
-                                message: `Generate or retrieve a short article in the ${targetLanguage} 
+                                content: `Generate or retrieve a short article in the ${targetLanguage} 
                                 language with difficulty ${difficulty} about one of the following subjects:
                                 ${interestsString}`
                             }
@@ -78,7 +78,7 @@ export function Read(props) {
                 throw new Error(`Error retreiving data! Details: ${response.status}`);
             }
 
-            const data = reponse.json();
+            const data = await response.json();
 
             const aiTextOutput = data.choices[0].message.content;
 
@@ -86,6 +86,7 @@ export function Read(props) {
             setLangArticle(finalArticleObject);
 
         } catch (error) {
+            console.error("Fetch failed:", error);
             setLangArticle(
                 {
                     "id": "article-error",
