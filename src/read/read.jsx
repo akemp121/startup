@@ -13,15 +13,86 @@ export function Read(props) {
 
     React.useEffect(
         () => {
-            const delay = setTimeout(
-                () => {
-                    setLangArticle(mockArticleData);
-                }, 2000
-            )
-            return () => clearTimeout(delay);
+            const savedArticle = localStorage.getItem('currentArticle');
+            if (savedArticle) {
+                setLangArticle(JSON.parse(savedArticle));
+            }
         }, []
     );
 
+    async function fetchArticle() {
+        const interestsString = interests.join(", ");
+        try {
+            response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Authorization: ": `Bearer ${"nothing"}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(
+                    {
+                        model: "nvidia/nemotron-3-super-120b-a12b:free",
+                        messages: [
+                            {
+                                role: "system",
+                                message: `
+                                    You are a language learning API. You will be generating or retreiving 
+                                    a short reading passage.
+
+                                    You must return the response STRICTLY as a valid JSON object matching 
+                                    the exact schema below. Do not include any introductory text, explanations, 
+                                    or markdown formatting (like \```json). Just output the raw JSON.
+
+                                    Rules for the "body" array:
+                                    1. Break the passage down into individual tokens (words and spaces).
+                                    2. Every single space must be its own object with "translation": null.
+                                    3. Keep punctuation attached to the word it follows (e.g., "realtà,").
+                                    4. Provide a direct, context-accurate English translation for each word. 
+                                    If it is a proper noun (like a name), provide the name or null.
+
+                                    Schema:
+                                    {
+                                        "id": "generate-a-unique-string",
+                                        "title": "Passage Title in Target Language",
+                                        "author": "Fictional Author Name",
+                                        "difficulty": "Requested Difficulty",
+                                        "body": [
+                                            { "id": 1, "text": "Word", "translation": "English translation" },
+                                            { "id": 2, "text": " ", "translation": null }
+                                        ]
+                                    }
+                                `
+                            },
+                            {
+                                role: "user",
+                                message: `Generate or retrieve a short article in the ${targetLanguage} 
+                                language with difficulty ${difficulty} about one of the following subjects:
+                                ${interestsString}`
+                            }
+                        ]
+                    }
+                )
+            });
+        
+        } catch (error) {
+            setLangArticle(
+                {
+                    "id": "article-error",
+                    "title": "Sorry!",
+                    "author": "Error retreiving article",
+                    "difficulty": "Intermediate",
+                    "body": [
+
+                        { "id": 1, "text": "Try", "translation": "Try" },
+                        { "id": 2, "text": " ", "translation": null },
+                        { "id": 3, "text": "again", "translation": "again" }
+                    ]
+                }
+            )
+        } finally {
+            setLangArticle(JSON.parse(response));
+        }
+    }
 
     const supportedLanguages = [
         { id: 'it', name: 'Italian' },
@@ -200,58 +271,58 @@ export function Read(props) {
                 {
                     langArticle === null ? <p>Loading article...</p> :
 
-                    <article className="col-md-6">
+                        <article className="col-md-6">
 
-                    <div className="my-3">
+                            <div className="my-3">
 
-                        <h1>{langArticle.title}</h1>
+                                <h1>{langArticle.title}</h1>
 
-                    </div>
+                            </div>
 
-                    <div className="mb-3">
+                            <div className="mb-3">
 
-                        <h3 className="fw-light">{langArticle.author}</h3>
+                                <h3 className="fw-light">{langArticle.author}</h3>
 
-                    </div>
+                            </div>
 
-                    <p className="article-text">
+                            <p className="article-text">
 
-                        {
-                            langArticle.body.map(
-                                (token) => {
-                                    const isSelected = selectedWord && selectedWord.id === token.id;
-                                    const isSelectable = token.translation !== null;
-                                    return (
-                                        <span key={token.id}
-                                            className={`${isSelected ? 'word-selected' : ''} ${isSelectable ? 'word-selectable' : ''}`}
+                                {
+                                    langArticle.body.map(
+                                        (token) => {
+                                            const isSelected = selectedWord && selectedWord.id === token.id;
+                                            const isSelectable = token.translation !== null;
+                                            return (
+                                                <span key={token.id}
+                                                    className={`${isSelected ? 'word-selected' : ''} ${isSelectable ? 'word-selectable' : ''}`}
 
-                                            onClick={() => {
-                                                if (isSelectable) {
-                                                    if (selectedWord === null) {
-                                                        setSelectedWord(token)
-                                                    } else if (selectedWord.text !== token.text) {
-                                                        setSelectedWord(token)
-                                                    } else {
-                                                        setSelectedWord("")
-                                                    }
-                                                }
-                                            }}>
-                                            {token.text}
-                                        </span>
-                                    );
+                                                    onClick={() => {
+                                                        if (isSelectable) {
+                                                            if (selectedWord === null) {
+                                                                setSelectedWord(token)
+                                                            } else if (selectedWord.text !== token.text) {
+                                                                setSelectedWord(token)
+                                                            } else {
+                                                                setSelectedWord("")
+                                                            }
+                                                        }
+                                                    }}>
+                                                    {token.text}
+                                                </span>
+                                            );
+                                        }
+                                    )
                                 }
-                            )
-                        }
 
-                    </p>
+                            </p>
 
-                    <Popup selectedWord={selectedWord} onSave={handleSave} onClose={() => setSelectedWord("")}/>
+                            <Popup selectedWord={selectedWord} onSave={handleSave} onClose={() => setSelectedWord("")} />
 
-                </article>
+                        </article>
 
                 }
 
-                
+
 
             </div>
 

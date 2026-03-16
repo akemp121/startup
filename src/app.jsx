@@ -14,8 +14,9 @@ export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
+    const navigate = useNavigate();
 
-    
+
 
     async function logout() {
         try {
@@ -27,9 +28,11 @@ export default function App() {
         } finally {
             localStorage.removeItem('userName');
             setAuthState(AuthState.Unauthenticated);
+            navigate('/');
         }
     }
-    return <BrowserRouter>
+
+    return (
 
         <div className="body d-flex flex-column min-vh-100">
 
@@ -105,14 +108,14 @@ export default function App() {
             </header>
 
             <Routes>
-                <Route 
+                <Route
                     path='/' element={
-                        authState === AuthState.Authenticated ? 
-                        <Navigate to='/read' replace /> :
-                        <Login 
-                            userName={userName}
-                            onLogin={(userLoginName) => {setAuthState(AuthState.Authenticated); setUserName(userLoginName);}} 
-                        />
+                        authState === AuthState.Authenticated ?
+                            <Navigate to='/read' replace /> :
+                            <Login
+                                userName={userName}
+                                onLogin={(userLoginName) => { setAuthState(AuthState.Authenticated); setUserName(userLoginName); }}
+                            />
                     }
                 />
                 <Route path='/read' element={<Read savedWords={savedWords} setSavedWords={setSavedWords} />} />
@@ -129,7 +132,7 @@ export default function App() {
 
         </div>
 
-    </BrowserRouter>
+    )
 }
 
 function NotFound() {
