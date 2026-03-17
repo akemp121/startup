@@ -13,13 +13,13 @@
 Simon:
 
 ```
-./deployReact.sh -k ~/keys/production.pem -h readforeign.click -s simon
+./deployService.sh -k ~/keys/production.pem -h readforeign.click -s simon
 ```
 
 Startup:
 
 ```
-./deployReact.sh -k ~/keys/production.pem -h readforeign.click -s startup
+./deployService.sh -k ~/keys/production.pem -h readforeign.click -s startup
 ```
 
 ## GitHub

@@ -82,21 +82,17 @@ For this deliverable I did the following:
 
 ## 🚀 React part 2: Reactivity deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
-
 - [x] **All functionality implemented or mocked out** - Look in the "read" and "practice" sections. All of the reactivity was implemented there. Try clicking on words in the article text!
 - [x] **Hooks** - I made state variables in all pages applicable. I added a fake loading time with useEffect.
 
 ## 🚀 Service deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
-
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service**
+- [x] **Static middleware for frontend** 
+- [x] **Calls to third party endpoints** 
+- [x] **Backend service endpoints** 
+- [x] **Frontend calls service endpoints** 
+- [x] **Supports registration, login, logout, and restricted endpoint**
 
 ## 🚀 DB deliverable
 
