@@ -32,7 +32,7 @@ export function Read(props) {
                 },
                 body: JSON.stringify(
                     {
-                        model: "nvidia/nemotron-3-super-120b-a12b:free",
+                        model: "openrouter/free",
                         messages: [
                             {
                                 role: "system",
@@ -74,7 +74,8 @@ export function Read(props) {
             });
 
             if (!response.ok) {
-                throw new Error(`Error retreiving data! Details: ${response.status}`);
+                const errorData = await response.json();
+                throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
             }
 
             const data = await response.json();
@@ -316,23 +317,23 @@ export function Read(props) {
                                             const isSelectable = translation !== null;
                                             return (
                                                 <span key={index}>
-                                                <span
-                                                    className={`${isSelected ? 'word-selected' : ''} ${isSelectable ? 'word-selectable' : ''}`}
+                                                    <span
+                                                        className={`${isSelected ? 'word-selected' : ''} ${isSelectable ? 'word-selectable' : ''}`}
 
-                                                    onClick={() => {
-                                                        if (isSelectable) {
-                                                            if (isSelected) {
-                                                                setSelectedWord("")
-                                                            } else {
-                                                                setSelectedWord({
-                                                                    id: index,
-                                                                    text: cleanWord,
-                                                                    translation: translation
-                                                                });
+                                                        onClick={() => {
+                                                            if (isSelectable) {
+                                                                if (isSelected) {
+                                                                    setSelectedWord("")
+                                                                } else {
+                                                                    setSelectedWord({
+                                                                        id: index,
+                                                                        text: cleanWord,
+                                                                        translation: translation
+                                                                    });
+                                                                }
                                                             }
-                                                        }
-                                                    }}>
-                                                    {word}
+                                                        }}>
+                                                        {word}
                                                     </span>
                                                     {' '}
                                                 </span>
