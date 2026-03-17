@@ -1,6 +1,5 @@
 import React from 'react';
 import { Popup } from '/src/components/popup.jsx';
-import mockArticleData from './mockArticleData.json'
 
 export function Read(props) {
 
@@ -10,6 +9,7 @@ export function Read(props) {
     const [inputValue, setInputValue] = React.useState("");
     const [selectedWord, setSelectedWord] = React.useState("");
     const [langArticle, setLangArticle] = React.useState(null);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     React.useEffect(
         () => {
@@ -21,6 +21,7 @@ export function Read(props) {
     );
 
     async function fetchArticle() {
+        setIsLoading(true);
         const interestsString = interests.join(", ");
         try {
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -67,13 +68,13 @@ export function Read(props) {
                                 role: "user",
                                 content: `Generate or retrieve a short article in the ${targetLanguage} 
                                 language with difficulty ${difficulty} about one of the following subjects:
-                                ${interestsString}`
+                                ${interestsString}. It must be at least 2 paragraphs.`
                             }
                         ]
                     }
                 )
             });
-        
+
             if (!response.ok) {
                 throw new Error(`Error retreiving data! Details: ${response.status}`);
             }
@@ -84,6 +85,7 @@ export function Read(props) {
 
             const finalArticleObject = JSON.parse(aiTextOutput);
             setLangArticle(finalArticleObject);
+            localStorage.setItem('currentArticle', finalArticleObject);
 
         } catch (error) {
             console.error("Fetch failed:", error);
@@ -102,6 +104,7 @@ export function Read(props) {
                 }
             )
         }
+        setIsLoading(false);
     }
 
     const supportedLanguages = [
@@ -279,7 +282,16 @@ export function Read(props) {
                 </aside>
 
                 {
-                    langArticle === null ? <p>Loading article...</p> :
+                    isLoading ? (
+                        <article className="col-md-6">
+                            <div className="skeleton-box skeleton-title"></div>
+                            <div className="skeleton-box skeleton-author"></div>
+                            <br />
+                            <div className="skeleton-box skeleton-text"></div>
+                            <div className="skeleton-box skeleton-text"></div>
+                            <div className="skeleton-box skeleton-text-short"></div>
+                        </article>
+                    ) : !(langArticle === null) ? (
 
                         <article className="col-md-6">
 
@@ -330,9 +342,9 @@ export function Read(props) {
 
                         </article>
 
+                    ) : null
+
                 }
-
-
 
             </div>
 
