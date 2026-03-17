@@ -36,39 +36,37 @@ export function Read(props) {
                         messages: [
                             {
                                 role: "system",
-                                content: `
-                                    You are a language learning API. You will be generating or retreiving 
-                                    a short reading passage.
+                                content: `You are a language learning API.
+        
+        You must return the response STRICTLY as a valid JSON object matching the exact schema below. 
+        Do not include markdown formatting (like \`\`\`json). Just output raw JSON.
 
-                                    You must return the response STRICTLY as a valid JSON object matching 
-                                    the exact schema below. Do not include any introductory text, explanations, 
-                                    or markdown formatting (like \`\`\`json). Just output the raw JSON.
+        Rules:
+        1. "full_text" must be a coherent, multi-paragraph reading passage.
+        2. "vocabulary" must be a dictionary (key-value pairs) where 
+        the key is the exact word from the text (stripped of punctuation) and the value is its direct English translation.
+        3. Include every distinct word from the text in the vocabulary dictionary.
 
-                                    Rules for the "body" array:
-                                    1. Break the passage down into individual tokens (words and spaces).
-                                    2. Every single space must be its own object with "translation": null.
-                                    3. Keep punctuation attached to the word it follows (e.g., "realtà,").
-                                    4. Provide a direct, context-accurate English translation for each word. 
-                                    If it is a proper noun (like a name), provide the name or null.
-
-                                    Schema:
-                                    {
-                                        "id": "generate-a-unique-string",
-                                        "title": "Passage Title in Target Language",
-                                        "author": "Fictional Author Name",
-                                        "difficulty": "Requested Difficulty",
-                                        "body": [
-                                            { "id": 1, "text": "Word", "translation": "English translation" },
-                                            { "id": 2, "text": " ", "translation": null }
-                                        ]
-                                    }
-                                `
+        Schema:
+        {
+            "id": "generate-a-unique-string",
+            "title": "Passage Title",
+            "author": "Fictional Author",
+            "difficulty": "Requested Difficulty",
+            "full_text": "Molte persone pensano che...",
+            "vocabulary": {
+                "Molte": "Many",
+                "persone": "people",
+                "pensano": "think",
+                "che": "that"
+            }
+        }`
                             },
                             {
                                 role: "user",
-                                content: `Generate or retrieve a short article in the ${targetLanguage} 
-                                language with difficulty ${difficulty} about one of the following subjects:
-                                ${interestsString}. It must be at least 2 paragraphs.`
+                                content: `Generate a reading article in ${targetLanguage} 
+                                at a ${difficulty} difficulty level. The topic should incorporate 
+                                these elements: ${interestsString}. Ensure the passage is at least 100 words.`
                             }
                         ]
                     }
@@ -85,7 +83,7 @@ export function Read(props) {
 
             const finalArticleObject = JSON.parse(aiTextOutput);
             setLangArticle(finalArticleObject);
-            localStorage.setItem('currentArticle', finalArticleObject);
+            localStorage.setItem('currentArticle', aiTextOutput);
 
         } catch (error) {
             console.error("Fetch failed:", error);
@@ -95,12 +93,12 @@ export function Read(props) {
                     "title": "Sorry!",
                     "author": "Error retreiving article",
                     "difficulty": "Intermediate",
-                    "body": [
-
-                        { "id": 1, "text": "Try", "translation": "Try" },
-                        { "id": 2, "text": " ", "translation": null },
-                        { "id": 3, "text": "again", "translation": "again" }
-                    ]
+                    "full_text": "Please try again.",
+                    "vocabulary": {
+                        "Please": "Please",
+                        "try": "try",
+                        "again": "again"
+                    }
                 }
             )
         }
@@ -310,26 +308,33 @@ export function Read(props) {
                             <p className="article-text">
 
                                 {
-                                    langArticle.body.map(
-                                        (token) => {
-                                            const isSelected = selectedWord && selectedWord.id === token.id;
-                                            const isSelectable = token.translation !== null;
+                                    langArticle.full_text.split(' ').map(
+                                        (word, index) => {
+                                            const cleanWord = word.replace(/[.,!?()]/g, '');
+                                            const translation = langArticle.vocabulary[cleanWord];
+                                            const isSelected = selectedWord && selectedWord.id === index;
+                                            const isSelectable = translation !== null;
                                             return (
-                                                <span key={token.id}
+                                                <span key={index}>
+                                                <span
                                                     className={`${isSelected ? 'word-selected' : ''} ${isSelectable ? 'word-selectable' : ''}`}
 
                                                     onClick={() => {
                                                         if (isSelectable) {
-                                                            if (selectedWord === null) {
-                                                                setSelectedWord(token)
-                                                            } else if (selectedWord.text !== token.text) {
-                                                                setSelectedWord(token)
-                                                            } else {
+                                                            if (isSelected) {
                                                                 setSelectedWord("")
+                                                            } else {
+                                                                setSelectedWord({
+                                                                    id: index,
+                                                                    text: cleanWord,
+                                                                    translation: translation
+                                                                });
                                                             }
                                                         }
                                                     }}>
-                                                    {token.text}
+                                                    {word}
+                                                    </span>
+                                                    {' '}
                                                 </span>
                                             );
                                         }
