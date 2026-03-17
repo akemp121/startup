@@ -10,7 +10,7 @@ app.use(`/api`, apiRouter);
 app.use(express.static('public'));
 
 const users = [];
-const port = process.argv.length > 2 ? process.argv[2] : 3000;
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 async function createUser(email, password) {
   const hashedPass = await bcrypt.hash(password, 10);
