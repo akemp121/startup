@@ -38,9 +38,17 @@ async function removeUserAuth(userRecord) {
     await userCollection.updateOne({ email: userRecord.email}, { $unset: { token: 1 } });
 }
 
+// update the user's token (when they log in)
 async function updateUserToken(email, token) {
     await userCollection.updateOne({ email: email}, { $set: { token: token }})
 }
+
+// add a single interest to the user's profile
+async function addUserInterest(userRecord, interest) {
+    await userCollection.updateOne({ email: userRecord.email }, { $push: { interests: interest}});
+}
+
+
 
 // export everything
 module.exports = {
@@ -48,5 +56,6 @@ module.exports = {
     getUserToken,
     createUser,
     removeUserAuth,
-    updateUserToken
+    updateUserToken,
+    addUserInterest
 }

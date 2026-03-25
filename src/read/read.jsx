@@ -121,6 +121,31 @@ export function Read(props) {
         }
     };
 
+    async function addInterest() {
+        if (inputValue.trim() !== "" && !interests.includes(inputValue)) {
+            setInterests([...interests, inputValue]);
+            const tempInterest = inputValue;
+            setInputValue("");
+            // setInputValue(""); put this once it is successful
+
+            const response = await fetch(
+                '/api/user/interests', {
+                method: 'post',
+                body: JSON.stringify({ interest: tempInterest }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }
+            );
+
+            if (response?.status !== 200) {
+                setInterests(interests.filter(interest => interest !== tempInterest));
+                setInputValue(tempInterest);
+            }
+
+        }
+    }
+
     const handleRemove = (interestToDelete) => {
         setInterests(interests.filter(interest => interest !== interestToDelete));
     };
@@ -241,7 +266,7 @@ export function Read(props) {
 
                         </ul>
 
-                        <form onSubmit={(e) => { e.preventDefault(); handleAdd(); }}>
+                        <form onSubmit={(e) => { e.preventDefault(); addInterest(); }}>
 
                             <div className="container-fluid">
 
@@ -256,7 +281,7 @@ export function Read(props) {
 
                                     <div className="col-md-3">
 
-                                        <button type="button" className="btn btn-primary rounded-pill" onClick={handleAdd}>Add</button>
+                                        <button type="button" className="btn btn-primary rounded-pill" onClick={addInterest}>Add</button>
 
                                     </div>
 

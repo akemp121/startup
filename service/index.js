@@ -109,6 +109,18 @@ apiRouter.get('/auth/user', async (req, res) => {
   }
 });
 
+// add interest
+apiRouter.post('/user/interests', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    await db.addUserInterest(userRecord, req.body.interest);
+    res.send({ msg: 'Interest added!' });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+});
+
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
