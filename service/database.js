@@ -64,6 +64,22 @@ async function getUserInterests(userRecord) {
     }
 }
 
+// set user difficulty
+async function setUserDifficulty(userRecord, difficulty) {
+    await userCollection.updateOne({ email: userRecord.email }, { $set: { difficulty: difficulty }});
+}
+
+// get user difficulty
+async function getUserDifficulty(userRecord) {
+    const userFound = await userCollection.findOne({ email: userRecord.email });
+
+    if (userFound && userFound.difficulty) {
+        return userFound.difficulty
+    } else {
+        return null;
+    }
+}
+
 
 // export everything
 module.exports = {
@@ -74,5 +90,7 @@ module.exports = {
     updateUserToken,
     addUserInterest,
     removeUserInterest,
-    getUserInterests
+    getUserInterests,
+    setUserDifficulty,
+    getUserDifficulty
 }

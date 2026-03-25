@@ -143,7 +143,31 @@ apiRouter.get('/user/interests', async (req, res) => {
   } else {
     res.status(401).send({ msg: 'Unauthorized!' });
   }
-})
+});
+
+// set user difficulty
+apiRouter.post('/user/difficulty', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    await db.setUserDifficulty(userRecord, req.body.difficulty);
+    res.send({ msg: 'Difficulty saved!' });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+});
+
+// get user difficulty
+apiRouter.get('/user/difficulty', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    const difficulty = await db.getUserDifficulty(userRecord);
+    res.send({ difficulty: difficulty });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+});
 
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);

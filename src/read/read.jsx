@@ -4,7 +4,7 @@ import { Popup } from '/src/components/popup.jsx';
 export function Read(props) {
 
     const [targetLanguage, setTargetLanguage] = React.useState("Italian");
-    const [difficulty, setDifficulty] = React.useState("Beginner");
+    const [difficulty, setDifficulty] = React.useState(null);
     const [interests, setInterests] = React.useState([]);
     const [inputValue, setInputValue] = React.useState("");
     const [selectedWord, setSelectedWord] = React.useState("");
@@ -33,7 +33,23 @@ export function Read(props) {
                 }
             }
 
+            const getUserDifficulty = async () => {
+                const response = await fetch(
+                    '/api/user/difficulty', {
+                    method: 'get',
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    }
+                }
+                );
+                if (response?.status === 200) {
+                    const difficultyData = await response.json();
+                    setDifficulty(difficultyData.difficulty);
+                }
+            }
+
             getUserInterests();
+            getUserDifficulty();
 
         }, []
     );
@@ -182,6 +198,22 @@ export function Read(props) {
         }
     }
 
+    async function setUserDifficulty(difficulty) {
+        const response = await fetch(
+            '/api/user/difficulty', {
+            method: 'post',
+            body: JSON.stringify({ difficulty: difficulty }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        }
+        );
+
+        if (response?.status === 200) {
+            setDifficulty(difficulty);
+        }
+    }
+
     const handleSave = () => {
         if (selectedWord.text.trim() !== "" && !props.savedWords.includes(selectedWord.text)) {
             props.setSavedWords([...props.savedWords, selectedWord]);
@@ -244,13 +276,13 @@ export function Read(props) {
                                 <fieldset>
 
                                     <div className="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                        <input type="radio" className="btn-check" name="difficulty" id="beginner" autoComplete="off" onChange={() => setDifficulty("Beginner")} checked={difficulty === "Beginner"}></input>
+                                        <input type="radio" className="btn-check" name="difficulty" id="beginner" autoComplete="off" onChange={() => setUserDifficulty("Beginner")} checked={difficulty === "Beginner"}></input>
                                         <label className="btn btn-outline-primary" htmlFor="beginner">Beginner</label>
 
-                                        <input type="radio" className="btn-check" name="difficulty" id="intermediate" autoComplete="off" onChange={() => setDifficulty("Intermediate")}></input>
+                                        <input type="radio" className="btn-check" name="difficulty" id="intermediate" autoComplete="off" onChange={() => setUserDifficulty("Intermediate")}></input>
                                         <label className="btn btn-outline-primary" htmlFor="intermediate">Intermediate</label>
 
-                                        <input type="radio" className="btn-check" name="difficulty" id="advanced" autoComplete="off" onChange={() => setDifficulty("Advanced")}></input>
+                                        <input type="radio" className="btn-check" name="difficulty" id="advanced" autoComplete="off" onChange={() => setUserDifficulty("Advanced")}></input>
                                         <label className="btn btn-outline-primary" htmlFor="advanced">Advanced</label>
                                     </div>
 
