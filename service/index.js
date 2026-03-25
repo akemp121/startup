@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bcrypt = require('bcryptjs');
+const db = require('./database.js');
 const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -20,34 +21,26 @@ async function createUser(email, password) {
     pass: hashedPass
   };
 
-  users.push(userRecord);
+  await db.createUser(userRecord);
 
   return userRecord;
 }
 
 const verifyAuth = async (req, res, next) => {
   const token = req.cookies['token'];
-  const user = await getUser('token', token);
-  if (user) {
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
     next();
   } else {
     res.status(401).send({ msg: 'Unauthorized' });
   }
 };
 
-// we're given a field (email or pass), then we find the user based on that
-async function getUser(field, value) {
-  if (value) {
-    return users.find((user) => user[field] === value);
-  }
-  return null;
-}
-
 // cookie token
-function setAuthCookie(res, user) {
-  user.token = uuid.v4();
+function setAuthCookie(res, userRecord) {
+  userRecord.token = uuid.v4();
 
-  res.cookie('token', user.token, {
+  res.cookie('token', userRecord.token, {
     secure: true,
     httpOnly: true,
     sameSite: 'strict'
@@ -55,8 +48,8 @@ function setAuthCookie(res, user) {
 }
 
 // delete token
-function clearAuthCookie(res, user) {
-  delete user.token;
+async function clearAuthCookie(res, userRecord) {
+  await db.removeUserAuth(userRecord);
   res.clearCookie('token');
 }
 
@@ -74,7 +67,7 @@ app.use((_req, res) => {
 
 // registration
 apiRouter.post('/auth/create', async (req, res) => {
-  if (await getUser('email', req.body.email)) {
+  if (await db.getUser(req.body.email)) {
     res.status(409).send({ msg: 'Existing user!' });
   } else {
     const userRecord = await createUser(req.body.email, req.body.password);
@@ -85,7 +78,7 @@ apiRouter.post('/auth/create', async (req, res) => {
 
 // login
 apiRouter.post('/auth/login', async (req, res) => {
-  const userRecord = await getUser('email', req.body.email);
+  const userRecord = await db.getUser(req.body.email);
   if (userRecord && (await bcrypt.compare(req.body.password, userRecord.pass))) {
     setAuthCookie(res, userRecord);
     res.send({ email: userRecord.email });
@@ -97,7 +90,7 @@ apiRouter.post('/auth/login', async (req, res) => {
 // logout
 apiRouter.delete('/auth/logout', async (req, res) => {
   const token = req.cookies['token'];
-  const userRecord = await getUser('token', token);
+  const userRecord = await db.getUserToken(token);
   if (userRecord) {
     clearAuthCookie(res, userRecord);
   }
@@ -107,7 +100,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
 // getMe
 apiRouter.get('/auth/user', async (req, res) => {
   const token = req.cookies['token'];
-  const userRecord = await getUser('token', token);
+  const userRecord = await db.getUserToken(token);
   if (userRecord) {
     res.send({ email: userRecord.email });
   } else {
