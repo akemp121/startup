@@ -121,6 +121,18 @@ apiRouter.post('/user/interests', async (req, res) => {
   }
 });
 
+// remove interest
+apiRouter.delete('/user/interests', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    await db.removeUserInterest(userRecord, req.body.interest);
+    res.send({ msg: 'Interest removed!' });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+});
+
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });

@@ -134,7 +134,7 @@ export function Read(props) {
                 body: JSON.stringify({ interest: tempInterest }),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
-                },
+                }
             }
             );
 
@@ -143,6 +143,24 @@ export function Read(props) {
                 setInputValue(tempInterest);
             }
 
+        }
+    }
+
+    async function removeInterest(interestToDelete) {
+        setInterests(interests.filter(interest => interest !== interestToDelete));
+
+        const response = await fetch(
+            '/api/user/interests', {
+            method: 'delete',
+            body: JSON.stringify({ interest: interestToDelete }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        }
+        );
+
+        if (response?.status !== 200) {
+            setInterests([...interests, interestToDelete]);
         }
     }
 
@@ -257,7 +275,7 @@ export function Read(props) {
                                         <li key={index} className="border word-pill bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
                                             <span className="me-2">{interest}</span>
-                                            <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => handleRemove(interest)}></button>
+                                            <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => removeInterest(interest)}></button>
 
                                         </li>
                                     )
