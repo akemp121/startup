@@ -53,6 +53,17 @@ async function removeUserInterest(userRecord, interest) {
     await userCollection.updateOne({ email: userRecord.email }, { $pull: { interests: interest }});
 }
 
+// get all saved interests for a user
+async function getUserInterests(userRecord) {
+    const userFound = await userCollection.findOne({ email: userRecord.email });
+
+    if (userFound && userFound.interests) {
+        return userFound.interests;
+    } else {
+        return [];
+    }
+}
+
 
 // export everything
 module.exports = {
@@ -62,5 +73,6 @@ module.exports = {
     removeUserAuth,
     updateUserToken,
     addUserInterest,
-    removeUserInterest
+    removeUserInterest,
+    getUserInterests
 }

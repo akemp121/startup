@@ -17,6 +17,24 @@ export function Read(props) {
             if (savedArticle) {
                 setLangArticle(JSON.parse(savedArticle));
             }
+
+            const getUserInterests = async () => {
+                const response = await fetch(
+                    '/api/user/interests', {
+                    method: 'get',
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    }
+                }
+                );
+                if (response?.status === 200) {
+                    const interestData = await response.json();
+                    setInterests(interestData.interests);
+                }
+            }
+
+            getUserInterests();
+
         }, []
     );
 
@@ -24,8 +42,8 @@ export function Read(props) {
         setIsLoading(true);
         const interestsString = interests.join(", ");
         try {
-            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                method: "POST",
+            const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                method: 'post',
                 headers: {
                     "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
                     "Content-Type": "application/json"
@@ -163,10 +181,6 @@ export function Read(props) {
             setInterests([...interests, interestToDelete]);
         }
     }
-
-    const handleRemove = (interestToDelete) => {
-        setInterests(interests.filter(interest => interest !== interestToDelete));
-    };
 
     const handleSave = () => {
         if (selectedWord.text.trim() !== "" && !props.savedWords.includes(selectedWord.text)) {

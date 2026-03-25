@@ -133,6 +133,18 @@ apiRouter.delete('/user/interests', async (req, res) => {
   }
 });
 
+// get user's interests
+apiRouter.get('/user/interests', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    const interestArray = await db.getUserInterests(userRecord);
+    res.send({ interests: interestArray });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+})
+
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
