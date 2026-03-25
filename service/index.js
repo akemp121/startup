@@ -37,10 +37,11 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // cookie token
-function setAuthCookie(res, userRecord) {
-  userRecord.token = uuid.v4();
+async function setAuthCookie(res, userRecord) {
+  const newToken = uuid.v4();
+  await db.updateUserToken(userRecord.email, newToken);
 
-  res.cookie('token', userRecord.token, {
+  res.cookie('token', newToken, {
     secure: true,
     httpOnly: true,
     sameSite: 'strict'
@@ -71,7 +72,7 @@ apiRouter.post('/auth/create', async (req, res) => {
     res.status(409).send({ msg: 'Existing user!' });
   } else {
     const userRecord = await createUser(req.body.email, req.body.password);
-    setAuthCookie(res, userRecord);
+    await setAuthCookie(res, userRecord);
     res.send({ email: userRecord.email });
   }
 });
@@ -80,7 +81,7 @@ apiRouter.post('/auth/create', async (req, res) => {
 apiRouter.post('/auth/login', async (req, res) => {
   const userRecord = await db.getUser(req.body.email);
   if (userRecord && (await bcrypt.compare(req.body.password, userRecord.pass))) {
-    setAuthCookie(res, userRecord);
+    await setAuthCookie(res, userRecord);
     res.send({ email: userRecord.email });
   } else {
     res.status(401).send({ msg: 'Unauthorized!' });
@@ -92,7 +93,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   const token = req.cookies['token'];
   const userRecord = await db.getUserToken(token);
   if (userRecord) {
-    clearAuthCookie(res, userRecord);
+    await clearAuthCookie(res, userRecord);
   }
   res.status(204).end();
 });

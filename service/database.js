@@ -38,10 +38,15 @@ async function removeUserAuth(userRecord) {
     await userCollection.updateOne({ email: userRecord.email}, { $unset: { token: 1 } });
 }
 
+async function updateUserToken(email, token) {
+    await userCollection.updateOne({ email: email}, { $set: { token: token }})
+}
+
 // export everything
 module.exports = {
     getUser,
     getUserToken,
     createUser,
-    removeUserAuth
+    removeUserAuth,
+    updateUserToken
 }
