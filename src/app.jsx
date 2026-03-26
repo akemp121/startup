@@ -10,7 +10,6 @@ import { About } from './about/about';
 import { AuthState } from './login/authState';
 
 export default function App() {
-    const [savedWords, setSavedWords] = React.useState([{ id: 35, text: "realtà,", translation: "reality," }]);
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
@@ -118,8 +117,8 @@ export default function App() {
                             />
                     }
                 />
-                <Route path='/read' element={<Read savedWords={savedWords} setSavedWords={setSavedWords} />} />
-                <Route path='/practice' element={<Practice savedWords={savedWords} setSavedWords={setSavedWords} />} />
+                <Route path='/read' element={<Read />} />
+                <Route path='/practice' element={<Practice />} />
                 <Route path='/about' element={<About />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>

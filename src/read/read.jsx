@@ -8,6 +8,7 @@ export function Read(props) {
     const [interests, setInterests] = React.useState([]);
     const [inputValue, setInputValue] = React.useState("");
     const [selectedWord, setSelectedWord] = React.useState("");
+    const [savedWords, setSavedWords] = React.useState([]);
     const [langArticle, setLangArticle] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(false);
 
@@ -235,12 +236,22 @@ export function Read(props) {
         // again, should we do any error handling?
     }
 
-    const handleSave = () => {
-        if (selectedWord.text.trim() !== "" && !props.savedWords.includes(selectedWord.text)) {
-            props.setSavedWords([...props.savedWords, selectedWord]);
+    async function saveWord(selectedWord) {
+        if (selectedWord.text.trim() !== "" && !savedWords.includes(selectedWord.text)) {
+            await fetch(
+                '/api/word', {
+                method: 'post',
+                body: JSON.stringify({ wordRecord: selectedWord }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            }
+            );
         }
+        // we're saving it locally just so that we prevent saving duplicates
+        setSavedWords([...savedWords, selectedWord]);
         setSelectedWord("");
-    };
+    }
 
     return (
         <main className="container-fluid flex-grow-1 d-flex py-3">
@@ -263,7 +274,7 @@ export function Read(props) {
                                 type="button"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
-                                >
+                            >
                                 {targetLanguage ? targetLanguage : "Select"}
                             </button>
 
@@ -458,7 +469,7 @@ export function Read(props) {
 
                             </p>
 
-                            <Popup selectedWord={selectedWord} onSave={handleSave} onClose={() => setSelectedWord("")} />
+                            <Popup selectedWord={selectedWord} onSave={saveWord} onClose={() => setSelectedWord("")} />
 
                         </article>
 

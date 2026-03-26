@@ -4,24 +4,25 @@ export function Practice(props) {
 
   const [nativeInputValue, setNativeInputValue] = React.useState("");
   const [targetInputValue, setTargetInputValue] = React.useState("");
+  const [savedWords, setSavedWords] = React.useState([]);
 
   const handleAdd = () => {
     if (nativeInputValue === "" || targetInputValue === "") return;
     
-    if (props.savedWords.some((word) => word.text.toLowerCase() === targetInputValue.trim().toLowerCase())) {
+    if (savedWords.some((word) => word.text.toLowerCase() === targetInputValue.trim().toLowerCase())) {
       return;
     }
 
     const newWord = { id: Date.now(), text: targetInputValue, translation: nativeInputValue };
 
-    props.setSavedWords([...props.savedWords, newWord]);
+    setSavedWords([...savedWords, newWord]);
   
     setNativeInputValue("");
     setTargetInputValue("");
   };
 
   const handleRemove = (wordToDelete) => {
-    props.setSavedWords(props.savedWords.filter(word => word !== wordToDelete));
+    setSavedWords(savedWords.filter(word => word !== wordToDelete));
   };
 
   return (
@@ -70,7 +71,7 @@ export function Practice(props) {
           <ul className="list-unstyled d-flex flex-wrap gap-2">
 
             {
-              props.savedWords.map(
+              savedWords.map(
                 (token) => (
 
                   <li key={token.id} className="border word-pill bg-light rounded-pill px-3 py-1 d-flex align-items-center">

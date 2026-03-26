@@ -113,8 +113,8 @@ async function getWords(userRecord) {
 }
 
 // delete a saved word
-async function deleteWord(userRecord, wordRecord) {
-    await wordCollection.deleteOne({ email: userRecord.email, text: wordRecord.text, translation: wordRecord.translation });
+async function deleteWord(userRecord, wordID) {
+    await wordCollection.deleteOne({ email: userRecord.email, _id: wordID });
 }
 
 
