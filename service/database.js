@@ -96,6 +96,22 @@ async function getUserTargetLanguage(userRecord) {
     }
 }
 
+// add a word to the user's collection
+async function addWord(userRecord, wordRecord) {
+    const toInsert = {
+        email: userRecord.email,
+        text: wordRecord.text,
+        translation: wordRecord.translation
+    }
+    await wordCollection.insertOne(toInsert);
+}
+
+// get an array of the user's saved words
+async function getWords(userRecord) {
+    const userWords = await wordCollection.find({ email: userRecord.email }).toArray();
+    return userWords;
+}
+
 
 // export everything
 module.exports = {
@@ -110,5 +126,7 @@ module.exports = {
     setUserDifficulty,
     getUserDifficulty,
     setUserTargetLanguage,
-    getUserTargetLanguage
+    getUserTargetLanguage,
+    addWord,
+    getWords
 }
