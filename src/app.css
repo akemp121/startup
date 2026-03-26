@@ -84,6 +84,18 @@
   color: var(--button-color-unpressed) !important;
 }
 
+.dropdown-item.active {
+  background-color: var(--button-color-unpressed) !important;
+  border-color: var(--button-color-unpressed) !important;
+  color: var(--button-text-unpressed) !important;
+}
+
+.dropdown-item:active,
+.dropdown-item:focus {
+  background-color: var(--button-color-pressed) !important;
+  border-color: var(--button-color-unpressed) !important;
+  color: var(--button-color-unpressed) !important;
+}
 
 
 .header-button {

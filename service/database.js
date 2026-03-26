@@ -80,6 +80,22 @@ async function getUserDifficulty(userRecord) {
     }
 }
 
+// set user target language
+async function setUserTargetLanguage(userRecord, language) {
+    await userCollection.updateOne({ email: userRecord.email }, { $set: { targetLanguage: language }});
+}
+
+// get user target language
+async function getUserTargetLanguage(userRecord) {
+    const userFound = await userCollection.findOne({ email: userRecord.email });
+
+    if (userFound && userFound.targetLanguage) {
+        return userFound.targetLanguage;
+    } else {
+        return null;
+    }
+}
+
 
 // export everything
 module.exports = {
@@ -92,5 +108,7 @@ module.exports = {
     removeUserInterest,
     getUserInterests,
     setUserDifficulty,
-    getUserDifficulty
+    getUserDifficulty,
+    setUserTargetLanguage,
+    getUserTargetLanguage
 }

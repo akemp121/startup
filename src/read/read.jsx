@@ -3,7 +3,7 @@ import { Popup } from '/src/components/popup.jsx';
 
 export function Read(props) {
 
-    const [targetLanguage, setTargetLanguage] = React.useState("Italian");
+    const [targetLanguage, setTargetLanguage] = React.useState(null);
     const [difficulty, setDifficulty] = React.useState(null);
     const [interests, setInterests] = React.useState([]);
     const [inputValue, setInputValue] = React.useState("");
@@ -21,10 +21,7 @@ export function Read(props) {
             const getUserInterests = async () => {
                 const response = await fetch(
                     '/api/user/interests', {
-                    method: 'get',
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                    }
+                    method: 'get'
                 }
                 );
                 if (response.ok) {
@@ -36,10 +33,7 @@ export function Read(props) {
             const getUserDifficulty = async () => {
                 const response = await fetch(
                     '/api/user/difficulty', {
-                    method: 'get',
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                    }
+                    method: 'get'
                 }
                 );
                 if (response.ok) {
@@ -48,8 +42,21 @@ export function Read(props) {
                 }
             }
 
+            const getUserTargetLanguage = async () => {
+                const response = await fetch(
+                    '/api/user/targetLanguage', {
+                    method: 'get'
+                }
+                );
+                if (response.ok) {
+                    const targetLanguageData = await response.json();
+                    setTargetLanguage(targetLanguageData.targetLanguage);
+                }
+            }
+
             getUserInterests();
             getUserDifficulty();
+            getUserTargetLanguage();
 
         }, []
     );
@@ -141,11 +148,16 @@ export function Read(props) {
     }
 
     const supportedLanguages = [
+        { id: '##', name: 'Select' },
         { id: 'it', name: 'Italian' },
         { id: 'es', name: 'Spanish' },
         { id: 'zh', name: 'Mandarin' },
         { id: 'fr', name: 'French' },
-        { id: 'de', name: 'German' }
+        { id: 'de', name: 'German' },
+        { id: 'ko', name: 'Korean' },
+        { id: 'ru', name: 'Russian' },
+        { id: 'pt', name: 'Portuguese' },
+        { id: 'no', name: 'Norwegian' }
     ];
 
     async function addInterest() {
@@ -207,6 +219,22 @@ export function Read(props) {
         // should we handle any errors here?
     }
 
+    async function setUserTargetLanguage(language) {
+        setTargetLanguage(language);
+
+        await fetch(
+            '/api/user/targetLanguage', {
+            method: 'post',
+            body: JSON.stringify({ targetLanguage: language }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            }
+        }
+        );
+
+        // again, should we do any error handling?
+    }
+
     const handleSave = () => {
         if (selectedWord.text.trim() !== "" && !props.savedWords.includes(selectedWord.text)) {
             props.setSavedWords([...props.savedWords, selectedWord]);
@@ -231,8 +259,12 @@ export function Read(props) {
 
                         <div className="dropdown">
 
-                            <button className="btn btn-primary dropdown-toggle rounded-pill" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {targetLanguage}
+                            <button className="btn btn-primary dropdown-toggle rounded-pill"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                >
+                                {targetLanguage ? targetLanguage : "Select"}
                             </button>
 
                             <ul className="dropdown-menu">
@@ -240,10 +272,10 @@ export function Read(props) {
                                     supportedLanguages.map(
                                         (lang) => (
                                             <li key={lang.id}>
-                                                <a className="dropdown-item" href="#" onClick={(e) => {
+                                                <a className={`dropdown-item ${targetLanguage === lang.name ? 'active' : ''}`} href="#" onClick={(e) => {
                                                     e.preventDefault();
-                                                    setTargetLanguage(lang.name);
-                                                }}>{lang.name}</a>
+                                                    setUserTargetLanguage(lang.name);
+                                                }} selected>{lang.name}</a>
                                             </li>
                                         )
                                     )

@@ -169,6 +169,30 @@ apiRouter.get('/user/difficulty', async (req, res) => {
   }
 });
 
+// set user target language
+apiRouter.post('/user/targetLanguage', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    await db.setUserTargetLanguage(userRecord, req.body.targetLanguage);
+    res.send({ msg: 'Target langauge saved!' });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+});
+
+// get user target language
+apiRouter.get('/user/targetLanguage', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    const targetLanguage = await db.getUserTargetLanguage(userRecord);
+    res.send({ targetLanguage: targetLanguage });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+});
+
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
