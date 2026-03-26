@@ -112,6 +112,11 @@ async function getWords(userRecord) {
     return userWords;
 }
 
+// delete a saved word
+async function deleteWord(userRecord, wordRecord) {
+    await wordCollection.deleteOne({ email: userRecord.email, text: wordRecord.text, translation: wordRecord.translation });
+}
+
 
 // export everything
 module.exports = {
@@ -128,5 +133,6 @@ module.exports = {
     setUserTargetLanguage,
     getUserTargetLanguage,
     addWord,
-    getWords
+    getWords,
+    deleteWord
 }
