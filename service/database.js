@@ -74,7 +74,7 @@ async function getUserDifficulty(userRecord) {
     const userFound = await userCollection.findOne({ email: userRecord.email });
 
     if (userFound && userFound.difficulty) {
-        return userFound.difficulty
+        return userFound.difficulty;
     } else {
         return null;
     }

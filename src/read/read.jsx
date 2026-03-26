@@ -27,7 +27,7 @@ export function Read(props) {
                     }
                 }
                 );
-                if (response?.status === 200) {
+                if (response.ok) {
                     const interestData = await response.json();
                     setInterests(interestData.interests);
                 }
@@ -42,7 +42,7 @@ export function Read(props) {
                     }
                 }
                 );
-                if (response?.status === 200) {
+                if (response.ok) {
                     const difficultyData = await response.json();
                     setDifficulty(difficultyData.difficulty);
                 }
@@ -148,13 +148,6 @@ export function Read(props) {
         { id: 'de', name: 'German' }
     ];
 
-    const handleAdd = () => {
-        if (inputValue.trim() !== "" && !interests.includes(inputValue)) {
-            setInterests([...interests, inputValue]);
-            setInputValue("");
-        }
-    };
-
     async function addInterest() {
         if (inputValue.trim() !== "" && !interests.includes(inputValue)) {
             setInterests([...interests, inputValue]);
@@ -172,7 +165,7 @@ export function Read(props) {
             }
             );
 
-            if (response?.status !== 200) {
+            if (!response.ok) {
                 setInterests(interests.filter(interest => interest !== tempInterest));
                 setInputValue(tempInterest);
             }
@@ -193,13 +186,15 @@ export function Read(props) {
         }
         );
 
-        if (response?.status !== 200) {
+        if (!response.ok) {
             setInterests([...interests, interestToDelete]);
         }
     }
 
     async function setUserDifficulty(difficulty) {
-        const response = await fetch(
+        setDifficulty(difficulty);
+
+        await fetch(
             '/api/user/difficulty', {
             method: 'post',
             body: JSON.stringify({ difficulty: difficulty }),
@@ -209,9 +204,7 @@ export function Read(props) {
         }
         );
 
-        if (response?.status === 200) {
-            setDifficulty(difficulty);
-        }
+        // should we handle any errors here?
     }
 
     const handleSave = () => {
@@ -279,10 +272,10 @@ export function Read(props) {
                                         <input type="radio" className="btn-check" name="difficulty" id="beginner" autoComplete="off" onChange={() => setUserDifficulty("Beginner")} checked={difficulty === "Beginner"}></input>
                                         <label className="btn btn-outline-primary" htmlFor="beginner">Beginner</label>
 
-                                        <input type="radio" className="btn-check" name="difficulty" id="intermediate" autoComplete="off" onChange={() => setUserDifficulty("Intermediate")}></input>
+                                        <input type="radio" className="btn-check" name="difficulty" id="intermediate" autoComplete="off" onChange={() => setUserDifficulty("Intermediate")} checked={difficulty === "Intermediate"}></input>
                                         <label className="btn btn-outline-primary" htmlFor="intermediate">Intermediate</label>
 
-                                        <input type="radio" className="btn-check" name="difficulty" id="advanced" autoComplete="off" onChange={() => setUserDifficulty("Advanced")}></input>
+                                        <input type="radio" className="btn-check" name="difficulty" id="advanced" autoComplete="off" onChange={() => setUserDifficulty("Advanced")} checked={difficulty === "Advanced"}></input>
                                         <label className="btn btn-outline-primary" htmlFor="advanced">Advanced</label>
                                     </div>
 
