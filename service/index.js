@@ -218,6 +218,18 @@ apiRouter.get('/word', async (req, res) => {
   }
 });
 
+// delete word from db
+apiRouter.delete('/word', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    await db.deleteWord(userRecord, req.body.wordRecord);
+    res.send({ msg: 'Word deleted!' });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+});
+
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
