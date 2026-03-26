@@ -236,7 +236,8 @@ export function Read(props) {
         // again, should we do any error handling?
     }
 
-    async function saveWord(selectedWord) {
+    async function saveWord() {
+        console.log({selectedWord});
         if (selectedWord.text.trim() !== "" && !savedWords.includes(selectedWord.text)) {
             await fetch(
                 '/api/word', {
