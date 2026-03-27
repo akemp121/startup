@@ -55,9 +55,22 @@ export function Read(props) {
                 }
             }
 
+            const getSavedWords = async () => {
+                const response = await fetch(
+                    '/api/word', {
+                        method: 'get'
+                    }
+                );
+                if (response.ok) {
+                    const savedWordData = await response.json();
+                    setSavedWords(savedWordData.userWords);
+                }
+            }
+
             getUserInterests();
             getUserDifficulty();
             getUserTargetLanguage();
+            getSavedWords();
 
         }, []
     );
@@ -237,8 +250,11 @@ export function Read(props) {
     }
 
     async function saveWord() {
-        console.log({selectedWord});
-        if (selectedWord.text.trim() !== "" && !savedWords.includes(selectedWord.text)) {
+        const isDuplicate = savedWords.some((word) => word.text === selectedWord.text);
+        if (selectedWord.text.trim() !== "" && !isDuplicate) {
+            // we're saving it locally just so that we prevent saving duplicates
+            setSavedWords([...savedWords, selectedWord]);
+            setSelectedWord("");
             await fetch(
                 '/api/word', {
                 method: 'post',
@@ -249,8 +265,6 @@ export function Read(props) {
             }
             );
         }
-        // we're saving it locally just so that we prevent saving duplicates
-        setSavedWords([...savedWords, selectedWord]);
         setSelectedWord("");
     }
 
