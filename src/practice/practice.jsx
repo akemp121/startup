@@ -6,24 +6,53 @@ export function Practice(props) {
   const [targetInputValue, setTargetInputValue] = React.useState("");
   const [savedWords, setSavedWords] = React.useState([]);
 
-  const handleAdd = () => {
-    if (nativeInputValue === "" || targetInputValue === "") return;
-    
-    if (savedWords.some((word) => word.text.toLowerCase() === targetInputValue.trim().toLowerCase())) {
-      return;
+  React.useEffect(() => {
+    const getSavedWords = async () => {
+      const response = await fetch(
+        '/api/word', {
+        method: 'get'
+      }
+      );
+      if (response.ok) {
+        const savedWordData = await response.json();
+        setSavedWords(savedWordData.userWords);
+      }
     }
 
-    const newWord = { id: Date.now(), text: targetInputValue, translation: nativeInputValue };
+    getSavedWords();
+  }, []);
 
-    setSavedWords([...savedWords, newWord]);
-  
-    setNativeInputValue("");
-    setTargetInputValue("");
+  async function handleAdd() {
+    if (nativeInputValue === "" || targetInputValue === "") return;
+
+    const newWord = { _id: Date.now(), text: targetInputValue, translation: nativeInputValue };
+    await saveWord(newWord);
   };
 
   const handleRemove = (wordToDelete) => {
     setSavedWords(savedWords.filter(word => word !== wordToDelete));
   };
+
+  async function saveWord(newWord) {
+    const isDuplicate = savedWords.some((word) => word.text === newWord.text);
+    if (newWord.text.trim() !== "" && !isDuplicate) {
+      // we're saving it locally just so that we prevent saving duplicates
+      setSavedWords([...savedWords, newWord]);
+      setNativeInputValue("");
+      setTargetInputValue("");
+      await fetch(
+        '/api/word', {
+        method: 'post',
+        body: JSON.stringify({ wordRecord: newWord }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        }
+      }
+      );
+    }
+    setNativeInputValue("");
+    setTargetInputValue("");
+  }
 
   return (
     <main className="container-fluid flex-grow-1 d-flex py-3">
@@ -74,7 +103,7 @@ export function Practice(props) {
               savedWords.map(
                 (token) => (
 
-                  <li key={token.id} className="border word-pill bg-light rounded-pill px-3 py-1 d-flex align-items-center">
+                  <li key={token._id} className="border word-pill bg-light rounded-pill px-3 py-1 d-flex align-items-center">
 
                     <span className="me-2">{token.text} = <span className="fw-light">{token.translation}</span></span>
                     <button type="button" className="btn-close" style={{ fontSize: '12px' }} onClick={() => handleRemove(token)}></button>
