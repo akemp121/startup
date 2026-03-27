@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
@@ -103,7 +103,8 @@ async function addWord(userRecord, wordRecord) {
         text: wordRecord.text,
         translation: wordRecord.translation
     }
-    await wordCollection.insertOne(toInsert);
+    const inserted = await wordCollection.insertOne(toInsert);
+    return inserted.insertedId;
 }
 
 // get an array of the user's saved words
@@ -114,7 +115,8 @@ async function getWords(userRecord) {
 
 // delete a saved word
 async function deleteWord(userRecord, wordID) {
-    await wordCollection.deleteOne({ email: userRecord.email, _id: wordID });
+    const objectId = new ObjectId(wordID);
+    await wordCollection.deleteOne({ email: userRecord.email, _id: objectId });
 }
 
 

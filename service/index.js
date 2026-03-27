@@ -198,8 +198,8 @@ apiRouter.post('/word', async (req, res) => {
   const token = req.cookies['token'];
   const userRecord = await db.getUserToken(token);
   if (userRecord) {
-    await db.addWord(userRecord, req.body.wordRecord)
-    res.send({ msg: 'Word saved!' });
+    const id = await db.addWord(userRecord, req.body.wordRecord)
+    res.send({ id: id });
   } else {
     res.status(401).send({ msg: 'Unauthorized!' });
   }
