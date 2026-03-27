@@ -96,10 +96,8 @@ For this deliverable I did the following:
 
 ## 🚀 DB deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
-
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
+- [x] **Stores data in MongoDB** - Stores auth data, user difficulty, target language, user interests, and user's saved words.
+- [x] **Stores credentials in MongoDB** ^^^ Stores auth data.
 
 ## 🚀 WebSocket deliverable
 
