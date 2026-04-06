@@ -206,7 +206,6 @@ apiRouter.post('/word', async (req, res) => {
 });
 
 // get words from the db
-
 apiRouter.get('/word', async (req, res) => {
   const token = req.cookies['token'];
   const userRecord = await db.getUserToken(token);
@@ -225,6 +224,30 @@ apiRouter.delete('/word', async (req, res) => {
   if (userRecord) {
     await db.deleteWord(userRecord, req.body.wordID);
     res.send({ msg: 'Word deleted!' });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+});
+
+// increment article count
+apiRouter.post('/stat', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    const articleCount = await db.incrementCount();
+    res.send({ count: articleCount });
+  } else {
+    res.status(401).send({ msg: 'Unauthorized!' });
+  }
+});
+
+// get article count
+apiRouter.get('/stat', async (req, res) => {
+  const token = req.cookies['token'];
+  const userRecord = await db.getUserToken(token);
+  if (userRecord) {
+    const articleCount = await db.getCount();
+    res.send({ count: articleCount });
   } else {
     res.status(401).send({ msg: 'Unauthorized!' });
   }
