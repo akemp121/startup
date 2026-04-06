@@ -7,6 +7,7 @@ const db = client.db('readForeign');
 const userCollection = db.collection('user');
 const wordCollection = db.collection('word');
 const articleCollection = db.collection('article');
+const statsCollection = db.collection('stats');
 
 (async function testConnection() {
   try {
@@ -119,6 +120,17 @@ async function deleteWord(userRecord, wordID) {
     await wordCollection.deleteOne({ email: userRecord.email, _id: objectId });
 }
 
+// add to article count
+async function incrementCount() {
+    await statsCollection.updateOne({ key: 'articleCount' }, { $inc: {value} });
+}
+
+// get article count
+async function getCount() {
+    const articleCount = await statsCollection.fineOne({ key: 'articleCount' });
+    return articleCount.value;
+}
+
 
 // export everything
 module.exports = {
@@ -136,5 +148,7 @@ module.exports = {
     getUserTargetLanguage,
     addWord,
     getWords,
-    deleteWord
+    deleteWord,
+    incrementCount,
+    getCount
 }
