@@ -234,8 +234,8 @@ apiRouter.post('/stat', async (req, res) => {
   const token = req.cookies['token'];
   const userRecord = await db.getUserToken(token);
   if (userRecord) {
-    const articleCount = await db.incrementCount();
-    res.send({ count: articleCount });
+    const count = await db.incrementCount();
+    res.send({ count: count });
   } else {
     res.status(401).send({ msg: 'Unauthorized!' });
   }

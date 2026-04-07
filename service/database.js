@@ -122,12 +122,13 @@ async function deleteWord(userRecord, wordID) {
 
 // add to article count
 async function incrementCount() {
-    await statsCollection.updateOne({ key: 'articleCount' }, { $inc: {value} });
+    const count = await statsCollection.findOneAndUpdate({ key: 'articleCount' }, { $inc: { value: 1} }, { upsert: true, returnDocument: 'after' });
+    return count.value;
 }
 
 // get article count
 async function getCount() {
-    const articleCount = await statsCollection.fineOne({ key: 'articleCount' });
+    const articleCount = await statsCollection.findOne({ key: 'articleCount' });
     return articleCount.value;
 }
 

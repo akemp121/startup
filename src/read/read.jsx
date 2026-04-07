@@ -75,6 +75,14 @@ export function Read(props) {
         }, []
     );
 
+    async function incrementCount() {
+        await fetch(
+            '/api/stat', {
+                method: 'post'
+            }
+        );
+    }
+
     async function fetchArticle() {
         setIsLoading(true);
         const interestsString = interests.join(", ");
@@ -412,7 +420,7 @@ export function Read(props) {
 
                         <form>
 
-                            <button type="button" className="btn btn-primary rounded-pill" onClick={fetchArticle}>Get New Article</button>
+                            <button type="button" className="btn btn-primary rounded-pill" onClick={() => {fetchArticle(); incrementCount();}}>Get New Article</button>
 
                         </form>
 

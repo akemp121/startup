@@ -13,9 +13,28 @@ export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
+    const [articleCount, setArticleCount] = React.useState(null);
     const navigate = useNavigate();
 
+    React.useEffect(
+        () => {
+            const getArticleCount = async () => {
+                const response = await fetch(
+                    '/api/stat', {
+                        method: 'get'
+                    }
+                );
+                if (response.ok) {
+                    const articleStats = await response.json();
+                    setArticleCount(articleStats.count);
+                }
+            }
 
+            getArticleCount();
+
+        }, 
+        []
+    );
 
     async function logout() {
         try {
@@ -123,9 +142,11 @@ export default function App() {
                 <Route path='*' element={<NotFound />} />
             </Routes>
 
-            <footer className="container-fluid py-3 border-top">
+            <footer className="container-fluid py-3 border-top gap-3">
 
-                <span>ReadForeign by Alex Kemp. <a href="https://github.com/akemp121/startup">GitHub</a></span>
+                <span>ReadForeign by Alex Kemp. <a href="https://github.com/akemp121/startup">GitHub.</a></span>
+
+                <span> {articleCount !== null ? articleCount : "?"} articles read</span>
 
             </footer>
 
