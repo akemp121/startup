@@ -32,9 +32,8 @@ export default function App() {
 
             getArticleCount();
 
-            // const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-            // const socket = new WebSocket(`${protocol}://${window.location.host}`);
-            const socket = new WebSocket(`ws://localhost:4000`);
+            const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+            const socket = new WebSocket(`${protocol}://${window.location.host}`);
 
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
