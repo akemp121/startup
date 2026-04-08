@@ -319,3 +319,7 @@ The `export` keyword is like the `public` keyword in Java or C++; it allows the 
 
 The brackets `[]` at the end of the `useEffect` hook indicate a dependency array. This tells the hook when to run the functions that we put inside of it. It's essentially a constructor. If we leave it empty, then it will only run when it's first rendered.
 
+## Where you're at now
+
+Put in WS functionality and try and understand it better. I think that there are problems with your "getCount" function that's running in App.jsx. Does it need to run there? 
+
