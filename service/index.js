@@ -26,6 +26,10 @@ async function createUser(email, password) {
   return userRecord;
 }
 
+const httpServer = app.listen(port, function () {
+  console.log(`Listening on port ${port}`);
+});
+
 const verifyAuth = async (req, res, next) => {
   const token = req.cookies['token'];
   const userRecord = await db.getUserToken(token);
@@ -253,6 +257,3 @@ apiRouter.get('/stat', async (req, res) => {
   }
 });
 
-app.listen(port, function () {
-  console.log(`Listening on port ${port}`);
-});
