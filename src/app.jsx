@@ -21,8 +21,8 @@ export default function App() {
             const getArticleCount = async () => {
                 const response = await fetch(
                     '/api/stat', {
-                        method: 'get'
-                    }
+                    method: 'get'
+                }
                 );
                 if (response.ok) {
                     const articleStats = await response.json();
@@ -32,7 +32,22 @@ export default function App() {
 
             getArticleCount();
 
-        }, 
+            // const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+            // const socket = new WebSocket(`${protocol}://${window.location.host}`);
+            const socket = new WebSocket(`ws://localhost:4000`);
+
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                if (message.type === 'COUNT_UPDATE') {
+                    setArticleCount(message.value);
+                }
+            }
+
+            return () => {
+                socket.close();
+            };
+
+        },
         []
     );
 

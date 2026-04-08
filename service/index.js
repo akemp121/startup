@@ -4,13 +4,13 @@ const bcrypt = require('bcryptjs');
 const db = require('./database.js');
 const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
+const { broadcast, peerProxy } = require('./peerProxy.js');
 app.use(cookieParser());
 app.use(express.json());
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 app.use(express.static('public'));
 
-const users = [];
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 async function createUser(email, password) {
@@ -29,6 +29,8 @@ async function createUser(email, password) {
 const httpServer = app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpServer);
 
 const verifyAuth = async (req, res, next) => {
   const token = req.cookies['token'];
@@ -239,6 +241,7 @@ apiRouter.post('/stat', async (req, res) => {
   const userRecord = await db.getUserToken(token);
   if (userRecord) {
     const count = await db.incrementCount();
+    broadcast({ type: 'COUNT_UPDATE', value: count });
     res.send({ count: count });
   } else {
     res.status(401).send({ msg: 'Unauthorized!' });
